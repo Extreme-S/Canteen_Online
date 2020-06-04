@@ -1,6 +1,7 @@
 import Dialog from '../../dist/dialog/dialog';
 import Toast from '../../dist/toast/toast';
 const db = wx.cloud.database()
+const app = getApp()
 Page({
   data: {
     show: false,
@@ -9,13 +10,13 @@ Page({
 
   //监听页面加载
   onLoad: function(options) {
-    //console.log(options)
     db.collection('Menu').doc(options._id).get().then(res => {
       //console.log(res)
       this.setData({
         good:res.data,
       })
       console.log(this.data.good)
+      
     })
 
   },

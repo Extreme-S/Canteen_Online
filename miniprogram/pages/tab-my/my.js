@@ -22,16 +22,7 @@ Page({
         })
       }
     })
-    //获取登录用户openid
-    wx.cloud.callFunction({
-      name: 'getOpenid',
-      success: function(res) {
-        pagethis.setData({
-          'user_info.openId': res.result.openId,
-        })
-        getApp().globalData.user_info.openId = res.result.openId
-      }
-    })
+   
   },
 
 })
