@@ -3,7 +3,7 @@ Page({
   data: {
     activeName1: '1',
     row: [{}],
-    activeName2: '2',
+    activeName2: '1',
   },
   onChange1(event) {
     this.setData({

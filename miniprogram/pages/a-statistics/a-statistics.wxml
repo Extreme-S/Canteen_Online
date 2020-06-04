@@ -1,30 +1,47 @@
-<van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid">
+<van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid-admin-window">
   <van-grid-item text="管理员所在食堂窗口" text-class="admin-info"/>
 </van-grid>
 
-<van-notice-bar wx:key="this" wx:for="{{notice2}}"
-  scrollable="false"
-  text="以下为当日的实时数据"
-  backgroundColor="#ffffff"
-  color="#000000"
-/>
+<van-cell-group title="今日实时订单" />
 
-<van-grid gutter="{{ 10 }}"  border="{{ true }}">
-  <van-grid-item text="午餐订单\\n***"/>
-  <van-grid-item text="午餐金额\\n***" />
-  <van-grid-item text="晚餐订单\\n***" />
-  <van-grid-item text="晚餐金额\\n***" />
+<van-grid gutter="{{ 10 }}"  square="{{true}}">
+
+  <van-grid-item use-slot>
+    <text class="number">335</text>
+    <text class="desc">午餐订单</text>
+  </van-grid-item>
+
+  <van-grid-item use-slot>
+    <text class="number">335</text>
+    <text class="desc">午餐金额</text>
+  </van-grid-item>
+
+  <van-grid-item use-slot>
+    <text class="number">335</text>
+    <text class="desc">晚餐订单</text>
+  </van-grid-item>
+
+  <van-grid-item use-slot>
+    <text class="number">335</text>
+    <text class="desc">晚餐金额</text>
+  </van-grid-item>
+
 </van-grid>
 
+<van-cell-group title="历史数据对比" />
 
 <view wx:key="this" wx:for="{{situation1}}">
+    <!--此处不能用card组件，需修改-->
     <van-card 
       title="{{ item.situation }}"
     >
     </van-card>
 </view>
 
+<van-cell-group title="菜品销量排行" />
+
 <view wx:key="this" wx:for="{{situation2}}">
+    <!--此处不能用card组件，需修改-->
     <van-card 
       title="{{ item.situation }}"
     >

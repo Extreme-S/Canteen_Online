@@ -20,7 +20,11 @@
   <van-cell title="宿舍楼" value="{{selectBuilding}}" is-link bind:click="showPopup" />
   <van-field value="{{ value_room }}" label="房间号" placeholder="请输入房间号" border="{{ false }}" input-align="right" bind:change="setRoom" error-message="{{ flag.room_f ? '' : '请输入4位有效房间号（如0516）'}}"/>
 </van-cell-group>
-<text>食堂管理员点此认证</text>
+
+<navigator>
+  <text class="switch-to-admin">食堂管理员点此认证</text>
+</navigator>
+
 
 <van-button custom-style='z-index:10;position:fixed;width:100%;bottom:0' type="primary" size="nomall" bindtap="submit_info">
   提交认证

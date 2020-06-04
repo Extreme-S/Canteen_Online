@@ -1,7 +1,10 @@
 .admin-info {
   font-size: 20px !important;
 }
-.grid {
+.grid-admin-window {
   margin-top: 15px;
-  margin-bottom: 15px;
+  /*margin-bottom: 15px;*/
+}
+.desc {
+  font-size: 12px;
 }

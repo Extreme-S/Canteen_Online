@@ -2,27 +2,35 @@
   <van-grid-item text="管理员所在食堂窗口" text-class="admin-info"/>
 </van-grid>
 
+<!--
 <van-row wx:key="this" wx:for="{{row}}">
   <van-col span="30" style='white-space:pre;'>中餐订单                                        (刷新时间)</van-col>
 </van-row>
+-->
+
+<van-cell-group title="午餐订单" />
 
 <van-collapse accordion value="{{ activeName1 }}" bind:change="onChange1">
-  <navigator url="../admin-recipe/admin-recipe">
+  
   <van-collapse-item title="第一批次，11：30送到***寝室楼下" name="1">
     套餐名+份数
   </van-collapse-item>
-  </navigator>
+  
   <van-collapse-item title="第二批次，11：30送到***寝室楼下" name="2">
     套餐名+份数
   </van-collapse-item>
+  
   <van-collapse-item title="第三批次，11：30送到***寝室楼下" name="3">
     套餐名+份数
   </van-collapse-item>
 </van-collapse>
 
+<!--
 <van-row wx:key="this" wx:for="{{row}}">
   <van-col span="30" style='white-space:pre;'>晚餐订单                                        (刷新时间)</van-col>
 </van-row>
+-->
+<van-cell-group title="晚餐订单" />
 
 <van-collapse accordion value="{{ activeName2 }}" bind:change="onChange2">
   <van-collapse-item title="第一批次，11：30送到***寝室楼下" name="1">

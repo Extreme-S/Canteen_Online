@@ -3,8 +3,6 @@ Page({
   data: {
     value: "",
     canteen: "全部",
-    notice1: [ {} ],
-    notice2: [{}],
     situation1: [
       {
         situation: "历史数据对比",
