@@ -42,15 +42,19 @@ Page({
                   db.collection('User_info').where({
                     openId: that.data.user_info.openId
                   }).get().then(res => {
-                    //console.log(res.data[0])
-                    //赋值为全局变量
+                    if (!res.data.length) {
+                      wx.redirectTo({
+                        url: '../userInfoSubmit/InfoSubmit',
+                      })
+                      return
+                    }
+                    //登录用户信息赋值为全局变量
                     app.globalData.user_info.is_admin = res.data[0].is_admin
                     app.globalData.user_info.name = res.data[0].name
                     app.globalData.user_info.openId = res.data[0].openId
                     app.globalData.user_info.phone_num = res.data[0].phone_num
                     app.globalData.user_info.site = res.data[0].site
                     app.globalData.user_info.sw_num = res.data[0].sw_num
-                    //console.log(app.globalData.user_info)
                   })
                 }
               })
