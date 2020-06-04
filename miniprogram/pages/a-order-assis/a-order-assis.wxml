@@ -11,15 +11,15 @@
 <van-cell-group title="午餐订单" />
 
 <van-collapse accordion value="{{ activeName1 }}" bind:change="onChange1">
-  
+
   <van-collapse-item title="第一批次，11：30送到***寝室楼下" name="1">
     套餐名+份数
   </van-collapse-item>
-  
+
   <van-collapse-item title="第二批次，11：30送到***寝室楼下" name="2">
     套餐名+份数
   </van-collapse-item>
-  
+
   <van-collapse-item title="第三批次，11：30送到***寝室楼下" name="3">
     套餐名+份数
   </van-collapse-item>
