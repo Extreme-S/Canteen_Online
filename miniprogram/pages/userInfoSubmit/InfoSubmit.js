@@ -27,14 +27,50 @@ Page({
 
   onShow() {
     var that = this
-    wx.cloud.callFunction({
-      name: 'getOpenid',
-      success: function(res) {
+    if (app.globalData.user_info.openId == null) {
+      //获取登录用户openid
+      wx.cloud.callFunction({
+        name: 'getOpenid',
+        success: function(res) {
+          that.setData({
+            'user_info.openId': res.result.openId
+          })
+        }
+      })
+    } else {
+      that.setData({
+        'user_info.openId': app.globalData.user_info.openId
+      })
+    }
+
+    //获取用户的个人信息
+    db.collection('User_info').where({
+      openId: that.data.user_info.openId
+    }).get().then(res => {
+      if (res.data.length) {
+        //登录用户信息赋值为全局变量
+        app.globalData.user_info.is_admin = res.data[0].is_admin
+        app.globalData.user_info.name = res.data[0].name
+        app.globalData.user_info.openId = res.data[0].openId
+        app.globalData.user_info.phone_num = res.data[0].phone_num
+        app.globalData.user_info.site = res.data[0].site
+        app.globalData.user_info.sw_num = res.data[0].sw_num
+
         that.setData({
-          'user_info.openId': res.result.openId
+          'user_info.is_admin': res.data[0].is_admin,
+          'user_info.name': res.data[0].name,
+          'user_info.openId': res.data[0].openId,
+          'user_info.phone_num': res.data[0].phone_num,
+          'user_info.site': res.data[0].site,
+          'user_info.sw_num': res.data[0].sw_num
         })
+        
+        console.log(this.data.user_info)
       }
+
     })
+
+
   },
 
   picker_onChange(event) {
@@ -126,7 +162,7 @@ Page({
       message: '确认提交认证信息?',
     }).then(() => {
       db.collection('User_info').where({
-        openId: getApp().globalData.user_info.openId
+        openId: app.globalData.user_info.openId
       }).get().then(res => {
         if (res.data.length != 0) { //数据库中找到了该用户的openId
           wx.cloud.callFunction({

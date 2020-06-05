@@ -3,11 +3,11 @@ App({
   globalData: {
     user_info: {//order页面加载时被初始化
       is_admin: true,
-      name: '',
-      openId: '',
-      phone_num: '',
-      site: '',
-      sw_num: ''
+      name: null,
+      openId: null,
+      phone_num: null,
+      site: null,
+      sw_num: null
     }
   },
 
