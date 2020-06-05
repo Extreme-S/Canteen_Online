@@ -6,7 +6,27 @@
   border-bottom-color: #353535;
   border-bottom-width: 1px;
 }
- 
+
+.canteen-view {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.canteen-select {
+    font-size: small;
+    margin-right: 3px;
+}
+
+.card-title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.card-desc {
+    font-size: small;
+}
+
 .header {
     margin: 90rpx 0 90rpx 50rpx;
     border-bottom: 1px solid #ccc;

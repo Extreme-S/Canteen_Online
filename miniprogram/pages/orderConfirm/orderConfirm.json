@@ -4,8 +4,7 @@
   "usingComponents": {
     "van-panel": "../../dist/panel/index",
     "van-image": "../../dist/image/index",
-    "van-cell": "../../dist/cell/index",
-    "van-cell-group": "../../dist/cell-group/index",
+
     "van-submit-bar": "../../dist/submit-bar/index",
     "van-popup": "../../dist/popup/index",
     "van-datetime-picker": "../../dist/datetime-picker/index",

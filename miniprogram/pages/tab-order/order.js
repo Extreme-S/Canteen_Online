@@ -4,8 +4,21 @@ const app = getApp()
 Page({
   data: {
     value: "",
+    show: false,
     canteen: "全部",
     goods: [],
+  },
+
+  showPopup: function(event) {
+    this.setData({
+      show: true
+    });
+  },
+
+  onClose() {
+    this.setData({
+      show: false
+    });
   },
 
   onShow() {

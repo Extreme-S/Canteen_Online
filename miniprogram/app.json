@@ -52,6 +52,8 @@
     "van-cell-group": "dist/cell-group/index",
 
     "van-grid": "dist/grid/index",
-    "van-grid-item": "dist/grid-item/index"
+    "van-grid-item": "dist/grid-item/index",
+
+    "van-icon":"dist/icon/index"
   }
 }

@@ -33,9 +33,9 @@
    <van-grid-item  link-type="navigateTo"  url="../a-statistics/a-statistics"  use-slot >
     <view>
       <van-icon name="bar-chart-o" size="30px" class="command-icon"/>
-      <text class="title">历史数据 </text>
+      <text class="title">订单数据 </text>
       <text>\n</text>
-      <text class="desc">查看窗口历史经营数据</text>
+      <text class="desc">查看窗口经营数据</text>
      </view>
   </van-grid-item>
 

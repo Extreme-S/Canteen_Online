@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "历史数据",
+  "navigationBarTitleText": "订单数据",
   "usingComponents": {
     "van-skeleton": "../../dist/skeleton/index",
     "van-card": "../../dist/card/index",

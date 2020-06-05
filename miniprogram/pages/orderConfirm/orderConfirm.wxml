@@ -4,7 +4,7 @@
   <van-cell title="菜品介绍" label="{{ good.meal_info}}" border="{{ false }}" />
   <!-- 时间选择 -->
   <van-cell title="预定送达时间" is-link bind:click="showPopup" />
-  <van-popup show="{{ show }}" custom-style="width: 100%" bind:close="onClose">
+  <van-popup show="{{ show }}"  position="bottom" custom-style="width: 100%" bind:close="onClose">
     <van-datetime-picker type="time" value="{{ currentDate }}" min-hour="{{ minHour }}" max-hour="{{ maxHour }}" bind:input="onInput" />
   </van-popup>
   <!-- 地址选择 -->

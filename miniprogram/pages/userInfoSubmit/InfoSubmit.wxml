@@ -1,29 +1,38 @@
 <van-dialog id="van-dialog" />
-<van-cell-group title="学校信息">
-  <van-cell center="true">
-    <text slot="title" class="school">上海理工大学</text>
-    <van-icon slot="icon" size="30px" name="cloud://test-iqvto.7465-test-iqvto-1302018735/my-image.jpg" />
-  </van-cell>
-</van-cell-group>
 
-<van-cell-group title="学生信息">
-  <van-field value="{{ user_indo.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}"/>
-  <van-field value="{{ user_info.name }}" label="姓名" placeholder="请输入姓名" border="{{ false }}" input-align="right" bind:change="setName" />
-  <van-field value="{{ user_indo.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}"/>
-</van-cell-group>
+<view>
+  <van-cell-group title="学校信息">
+    <van-cell center="true">
+      <text slot="title" class="school">上海理工大学</text>
+      <van-icon slot="icon" size="30px" name="cloud://test-iqvto.7465-test-iqvto-1302018735/my-image.jpg" />
+    </van-cell>
+  </van-cell-group>
 
-<!--宿舍信息：宿舍楼采用弹出层选择-->
-<van-popup show="{{ show }}" position="bottom" custom-style="height: 45%;" bind:close="onClose">
-  <van-picker columns="{{ columns }}" bind:change="picker_onChange" />
-</van-popup>
-<van-cell-group title="宿舍信息">
-  <van-cell title="宿舍楼" value="{{selectBuilding}}" is-link bind:click="showPopup" />
-  <van-field value="{{ value_room }}" label="房间号" placeholder="请输入房间号" border="{{ false }}" input-align="right" bind:change="setRoom" error-message="{{ flag.room_f ? '' : '请输入4位有效房间号（如0516）'}}"/>
-</van-cell-group>
+  <van-cell-group title="学生信息">
+    <van-field value="{{ user_indo.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}"/>
+    <van-field value="{{ user_info.name }}" label="姓名" placeholder="请输入姓名" border="{{ false }}" input-align="right" bind:change="setName" />
+    <van-field value="{{ user_indo.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}"/>
+  </van-cell-group>
 
-<navigator>
-  <text class="switch-to-admin">食堂管理员点此认证</text>
-</navigator>
+  <!--宿舍信息：宿舍楼采用弹出层选择-->
+  <van-popup show="{{ show }}" position="bottom" custom-style="height: 45%;" bind:close="onClose">
+    <van-picker columns="{{ columns }}" bind:change="picker_onChange" />
+  </van-popup>
+  <van-cell-group title="宿舍信息">
+    <van-cell title="宿舍楼" value="{{selectBuilding}}" is-link bind:click="showPopup" />
+    <van-field value="{{ value_room }}" label="房间号" placeholder="请输入房间号" border="{{ false }}" input-align="right" bind:change="setRoom" error-message="{{ flag.room_f ? '' : '请输入4位有效房间号（如0516）'}}"/>
+  </van-cell-group>
+
+</view>
+
+  <text bindtap="change_to_admin" class="change-to-admin">
+    管理员认证入口
+  </text>
+
+
+<!--
+  管理者怎么认证？
+-->
 
 
 <van-button custom-style='z-index:10;position:fixed;width:100%;bottom:0' type="primary" size="nomall" bindtap="submit_info">

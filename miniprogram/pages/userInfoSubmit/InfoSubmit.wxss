@@ -4,3 +4,10 @@
   margin-left: 15px;
   font-size: 15px;
 }
+
+.change-to-admin {
+  color: blue;  
+  font-size: small;
+  text-align: center;
+  text-decoration: underline;
+}
