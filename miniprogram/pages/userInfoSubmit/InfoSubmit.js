@@ -1,5 +1,6 @@
 import Dialog from '../../dist/dialog/dialog';
 const db = wx.cloud.database()
+const app = getApp()
 Page({
   data: {
     columns: ['三公寓一号楼', '三公寓二号楼', '三公寓三号楼', '三公寓四号楼', '三公寓五号楼'],
@@ -25,8 +26,14 @@ Page({
   },
 
   onShow() {
-    this.setData({
-      'user_info.openId': getApp().globalData.user_info.openId
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      success: function(res) {
+        that.setData({
+          'user_info.openId': res.result.openId
+        })
+      }
     })
   },
 
@@ -121,8 +128,7 @@ Page({
       db.collection('User_info').where({
         openId: getApp().globalData.user_info.openId
       }).get().then(res => {
-        if (res.data.length != 0) {//数据库中找到了该用户的openId
-          console.log("update")
+        if (res.data.length != 0) { //数据库中找到了该用户的openId
           wx.cloud.callFunction({
             name: 'db_User_info',
             data: {
@@ -132,10 +138,9 @@ Page({
           }).then(console.log)
           wx.showToast({
             title: '个人信息修改成功',
-            icon:'none'
+            icon: 'none'
           })
-        } else {//数据库中没有找到改用户openId
-          console.log("add")
+        } else { //数据库中没有找到改用户openId
           wx.cloud.callFunction({
             name: 'db_User_info',
             data: {

@@ -1,22 +1,12 @@
-
-<!--pages/tab-orders/orders.wxml-->
-
-<!-- 商品栏 -->
-<view wx:key="this" wx:for="{{goods}}">
+<!-- 订单栏 -->
+<view wx:key="this" wx:for="{{user_orders}}">
   <!--用wx:for绑定good数组，用数组中各项的数据重复渲染该组件-->
   <!--此个列表是动态列表，要加wx:key字段-->
-  <navigator url="../orderConfirm/orderConfirm?id={{item._id}}&name={{item.name}}"> <!--改！订单状态页-->
-    <van-card
-      price="{{ item.price }}"
-      desc="{{ item.desc }}"
-      title="{{ item.name }}"
-      thumb="{{ item.imageURL }}"
-    >
-      <view slot="price-top">
-        食堂名称<!--毕竟每个菜品的食堂不同，用{{ item.canteen }}？-->
-      </view>
-    </van-card>
-  </navigator>
+
+  <van-card 
+  desc="订单创建时间:{{ item.submission_time }}  订单预计送达：{{item.dilivery_time}}" 
+  title="订单编号：{{ item._id }}"
+  >
+  </van-card>
+
 </view>
-
-
