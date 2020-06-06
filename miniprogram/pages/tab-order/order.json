@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "点餐",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "van-search": "../../dist/search/index",
     "van-divider": "../../dist/divider/index",

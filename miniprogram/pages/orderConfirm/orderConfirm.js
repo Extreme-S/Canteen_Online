@@ -5,13 +5,15 @@ const db = wx.cloud.database()
 const app = getApp()
 Page({
   data: {
+    columns: ['中午11:30', '中午12:00', '中午12:30', '下午17:00', '下午17:30', '下午18：00'],
+
     show: false,
     good: {},
     user_order: {
       user_info: {}, //用户信息
       meal_id: '', //菜品id
       submission_time: '', //提交时间
-      dilivery_time: '中午11：30' //配送时间
+      dilivery_time: '中午11:30' //配送时间
     }
   },
 
@@ -28,6 +30,8 @@ Page({
     })
   },
 
+
+
   showPopup() {
     this.setData({
       show: true
@@ -38,6 +42,18 @@ Page({
     this.setData({
       show: false
     });
+  },
+
+  pickerOnChange(event) {
+    const {
+      picker,
+      value,
+      index
+    } = event.detail;
+    Toast(`当前值：${value}, 当前索引：${index}`);
+    this.setData({
+      'user_order.dilivery_time': `${value}`,
+    })
   },
 
   onSubmit() {
@@ -59,7 +75,7 @@ Page({
             command: "add",
             data: that.data.user_order
           },
-          success: function (res) {
+          success: function(res) {
             console.log(res)
             wx.switchTab({
               url: '../tab-orders/orders',

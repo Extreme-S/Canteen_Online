@@ -7,7 +7,7 @@ Page({
     show: false,
     canteen: "全部",
     goods: [],
-  },
+  }, 
 
   showPopup: function(event) {
     this.setData({
@@ -21,17 +21,14 @@ Page({
     });
   },
 
-  onShow() {
+  onShow: function() {
     this.getTabBar().init(); //初始化底部导航栏
-    wx.cloud.callFunction({
-      name: 'db_menu_command',
-      data: {
-        command: "get",
-      }
-    }).then(res => {
-      this.setData({
-        goods: res.result.data,
-      })
+    this.getData(res => {});
+  },
+
+  onPullDownRefresh: function() {
+    this.getData(res => {
+      wx.stopPullDownRefresh();
     })
   },
 
@@ -81,4 +78,19 @@ Page({
       }
     });
   },
+
+  getData: function(callback) {
+    wx.showLoading({
+      title: '数据加载中',
+    })
+    db.collection('Menu').get().then(res => {
+      this.setData({
+        goods: res.data,
+      }, res => {
+        wx.hideLoading()
+        callback();
+      })
+    })
+  },
+
 })

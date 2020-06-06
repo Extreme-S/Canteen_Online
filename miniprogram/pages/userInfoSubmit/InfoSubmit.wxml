@@ -9,9 +9,9 @@
   </van-cell-group>
 
   <van-cell-group title="学生信息">
-    <van-field value="{{ user_indo.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}"/>
+    <van-field value="{{ user_info.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}"/>
     <van-field value="{{ user_info.name }}" label="姓名" placeholder="请输入姓名" border="{{ false }}" input-align="right" bind:change="setName" />
-    <van-field value="{{ user_indo.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}"/>
+    <van-field value="{{ user_info.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}"/>
   </van-cell-group>
 
   <!--宿舍信息：宿舍楼采用弹出层选择-->

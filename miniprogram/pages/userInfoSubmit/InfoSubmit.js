@@ -27,50 +27,37 @@ Page({
 
   onShow() {
     var that = this
-    if (app.globalData.user_info.openId == null) {
+    if (app.globalData.user_info.openId == null) { //如果app.js中没有openId
       //获取登录用户openid
       wx.cloud.callFunction({
         name: 'getOpenid',
         success: function(res) {
-          that.setData({
-            'user_info.openId': res.result.openId
+          //获取用户的个人信息
+          db.collection('User_info').where({
+            openId: res.result.openId
+          }).get().then(res => {
+            console.log(res)
+            if (res.data.length) {
+              //登录用户信息赋值为全局变量
+              app.globalData.user_info.is_admin = res.data[0].is_admin
+              app.globalData.user_info.name = res.data[0].name
+              app.globalData.user_info.openId = res.data[0].openId
+              app.globalData.user_info.phone_num = res.data[0].phone_num
+              app.globalData.user_info.site = res.data[0].site
+              app.globalData.user_info.sw_num = res.data[0].sw_num
+            }
           })
         }
       })
-    } else {
-      that.setData({
-        'user_info.openId': app.globalData.user_info.openId
-      })
     }
-
-    //获取用户的个人信息
-    db.collection('User_info').where({
-      openId: that.data.user_info.openId
-    }).get().then(res => {
-      if (res.data.length) {
-        //登录用户信息赋值为全局变量
-        app.globalData.user_info.is_admin = res.data[0].is_admin
-        app.globalData.user_info.name = res.data[0].name
-        app.globalData.user_info.openId = res.data[0].openId
-        app.globalData.user_info.phone_num = res.data[0].phone_num
-        app.globalData.user_info.site = res.data[0].site
-        app.globalData.user_info.sw_num = res.data[0].sw_num
-
-        that.setData({
-          'user_info.is_admin': res.data[0].is_admin,
-          'user_info.name': res.data[0].name,
-          'user_info.openId': res.data[0].openId,
-          'user_info.phone_num': res.data[0].phone_num,
-          'user_info.site': res.data[0].site,
-          'user_info.sw_num': res.data[0].sw_num
-        })
-        
-        console.log(this.data.user_info)
-      }
-
+    that.setData({
+      'user_info.is_admin': app.globalData.user_info.is_admin,
+      'user_info.name': app.globalData.user_info.name,
+      'user_info.openId': app.globalData.user_info.openId,
+      'user_info.phone_num': app.globalData.user_info.phone_num,
+      'user_info.site': app.globalData.user_info.site,
+      'user_info.sw_num': app.globalData.user_info.sw_num
     })
-
-
   },
 
   picker_onChange(event) {
