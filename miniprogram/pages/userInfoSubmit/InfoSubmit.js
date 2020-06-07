@@ -172,6 +172,10 @@ Page({
             }
           }).then(console.log)
         }
+        wx.switchTab({
+          url: '../tab-my/my',
+        })
+
       })
     }).catch(() => {
 

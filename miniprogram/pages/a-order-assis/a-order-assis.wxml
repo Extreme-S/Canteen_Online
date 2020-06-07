@@ -1,45 +1,43 @@
 <van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid">
-  <van-grid-item text="管理员所在食堂窗口" text-class="admin-info"/>
+  <van-grid-item text="管理员所在食堂窗口" text-class="admin-info" />
 </van-grid>
 
-<!--
-<van-row wx:key="this" wx:for="{{row}}">
-  <van-col span="30" style='white-space:pre;'>中餐订单                                        (刷新时间)</van-col>
-</van-row>
--->
 
 <van-cell-group title="午餐订单" />
-
 <van-collapse accordion value="{{ activeName1 }}" bind:change="onChange1">
-
-  <van-collapse-item title="第一批次，11：30送到***寝室楼下" name="1">
-    套餐名+份数
+  <van-collapse-item title="第一批次，11：30共计****份" name="1">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_1}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
-
-  <van-collapse-item title="第二批次，11：30送到***寝室楼下" name="2">
-    套餐名+份数
+  <van-collapse-item title="第二批次，12：00共计****份" name="2">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_2}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
-
-  <van-collapse-item title="第三批次，11：30送到***寝室楼下" name="3">
-    套餐名+份数
+  <van-collapse-item title="第三批次，12：30共计****份" name="3">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_3}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
 </van-collapse>
 
-<!--
-<van-row wx:key="this" wx:for="{{row}}">
-  <van-col span="30" style='white-space:pre;'>晚餐订单                                        (刷新时间)</van-col>
-</van-row>
--->
-<van-cell-group title="晚餐订单" />
 
+<van-cell-group title="晚餐订单" />
 <van-collapse accordion value="{{ activeName2 }}" bind:change="onChange2">
-  <van-collapse-item title="第一批次，11：30送到***寝室楼下" name="1">
-    套餐名+份数
+  <van-collapse-item title="第一批次，17：30共计****份" name="1">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_1}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
-  <van-collapse-item title="第二批次，11：30送到***寝室楼下" name="2">
-    套餐名+份数
+  <van-collapse-item title="第二批次，18：00共计****份" name="2">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_2}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
-  <van-collapse-item title="第三批次，11：30送到***寝室楼下" name="3">
-    套餐名+份数
+  <van-collapse-item title="第三批次，18：30共计****份" name="3">
+    <view wx:key="this" wx:for="{{ordersOfAdmin.orders_noon_3}}">
+      <!-- <van-cell title="{{item.meal_name}}"" value="{{item.num}}" /> -->
+    </view>
   </van-collapse-item>
 </van-collapse>

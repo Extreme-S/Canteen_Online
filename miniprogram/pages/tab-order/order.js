@@ -27,9 +27,17 @@ Page({
   },
 
   onPullDownRefresh: function() {
+    this.setData({
+      goods:[],
+    })
+    this.pageData.skip = 0;
     this.getData(res => {
       wx.stopPullDownRefresh();
     })
+  },
+
+  onReachBottom: function () {
+    this.getData(res=>{});
   },
 
   onLoad: function() {
@@ -83,14 +91,19 @@ Page({
     wx.showLoading({
       title: '数据加载中',
     })
-    db.collection('Menu').get().then(res => {
+    db.collection('Menu').skip(this.pageData.skip).get().then(res => {
+      let oldData = this.data.goods;
       this.setData({
-        goods: res.data,
+        goods: oldData.concat(res.data),
       }, res => {
+        this.pageData.skip = this.pageData.skip +20;
         wx.hideLoading()
         callback();
       })
     })
   },
 
+  pageData:{
+    skip:0,
+  }
 })

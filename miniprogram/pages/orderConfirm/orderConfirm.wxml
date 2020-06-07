@@ -1,11 +1,11 @@
 <van-image width="320" height="250" fit="fill" src="{{good.meal_img}}" />
 <van-cell-group class="cell-group">
   <van-cell title="菜品名称" value="{{ good.meal_name}}" />
-  <van-cell title="菜品介绍" label="{{ good.meal_info}}"  />
+  <van-cell title="菜品介绍" label="{{ good.meal_info}}" />
   <!-- 时间选择 -->
-  <van-cell title="预定送达时间"  is-link value="{{user_order.dilivery_time}}" bind:click="showPopup" />
+  <van-cell title="预定送达时间" is-link value="{{user_order.dilivery_time}}" bind:click="showPopup" />
   <van-popup show="{{ show }}" position="bottom" custom-style="width: 100%" bind:close="onClose">
-    <van-picker columns="{{ columns }}" default-index="{{ 0 }}" bind:change="pickerOnChange" />
+    <van-picker columns="{{ columns }}" bind:change="pickerOnChange" />
   </van-popup>
   <!-- 地址选择 -->
   <van-cell title="地址信息" label="{{user_order.user_info.site}}" border="{{ false }}" />

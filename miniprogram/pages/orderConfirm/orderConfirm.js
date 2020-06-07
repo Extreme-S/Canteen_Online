@@ -1,11 +1,25 @@
 import Dialog from '../../dist/dialog/dialog';
 import Toast from '../../dist/toast/toast';
-import util from '../../utils/util';
 const db = wx.cloud.database()
 const app = getApp()
+
+const time = {
+  '中午': ['11:30', '12:00', '12:30'],
+  '下午': ['17:30', '18:00', '18:30'],
+};
+
 Page({
   data: {
-    columns: ['中午11:30', '中午12:00', '中午12:30', '下午17:00', '下午17:30', '下午18：00'],
+    columns: [{
+        values: Object.keys(time),
+        className: 'column1',
+      },
+      {
+        values: time['中午'],
+        className: 'column2',
+        defaultIndex: 0,
+      },
+    ],
 
     show: false,
     good: {},
@@ -45,14 +59,11 @@ Page({
   },
 
   pickerOnChange(event) {
-    const {
-      picker,
-      value,
-      index
-    } = event.detail;
-    Toast(`当前值：${value}, 当前索引：${index}`);
+    const {picker,value,index} = event.detail;
+    picker.setColumnValues(1, time[value[0]]);
+    //console.log(picker.getValues())
     this.setData({
-      'user_order.dilivery_time': `${value}`,
+      'user_order.dilivery_time': picker.getColumnValue(0) + picker.getColumnValue(1)
     })
   },
 
@@ -64,25 +75,35 @@ Page({
         messageAlign: "left",
       })
       .then(() => {
-        Toast.success("订单确认");
+        var date = new Date()
         that.setData({
-          'user_order.submission_time': util.formatTime(new Date()),
+          'user_order.submission_time': date.toLocaleString(),
         })
-        console.log(that.data.user_order)
-        wx.cloud.callFunction({
-          name: 'db_User_orders',
-          data: {
-            command: "add",
-            data: that.data.user_order
-          },
-          success: function(res) {
-            console.log(res)
+        //console.log(that.data.user_order)
+        db.collection('User_orders').add({
+          data: that.data.user_order,
+          success:function(res){
+            Toast.success('订单确认')
             wx.switchTab({
               url: '../tab-orders/orders',
             })
           },
-          fail: console.error
+          fail:console.error
         })
+        // wx.cloud.callFunction({
+        //   name: 'db_User_orders',
+        //   data: {
+        //     command: "add",
+        //     data: that.data.user_order
+        //   },
+        //   success: function(res) {
+        //     console.log(res)
+        //     wx.switchTab({
+        //       url: '../tab-orders/orders',
+        //     })
+        //   },
+        //   fail: console.error
+        // })
       })
       .catch(() => {
         // on cancel
