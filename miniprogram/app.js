@@ -1,7 +1,7 @@
 //app.js
 App({
   globalData: {
-    user_info: {//order页面加载时被初始化
+    user_info: { //order页面加载时被初始化
       is_admin: true,
       name: null,
       openId: null,

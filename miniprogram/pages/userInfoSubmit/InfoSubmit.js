@@ -27,29 +27,24 @@ Page({
 
   onShow() {
     var that = this
-    if (app.globalData.user_info.openId == null) { //如果app.js中没有openId
-      //获取登录用户openid
-      wx.cloud.callFunction({
-        name: 'getOpenid',
-        success: function(res) {
-          //获取用户的个人信息
-          db.collection('User_info').where({
-            openId: res.result.openId
-          }).get().then(res => {
-            console.log(res)
-            if (res.data.length) {
-              //登录用户信息赋值为全局变量
-              app.globalData.user_info.is_admin = res.data[0].is_admin
-              app.globalData.user_info.name = res.data[0].name
-              app.globalData.user_info.openId = res.data[0].openId
-              app.globalData.user_info.phone_num = res.data[0].phone_num
-              app.globalData.user_info.site = res.data[0].site
-              app.globalData.user_info.sw_num = res.data[0].sw_num
-            }
-          })
-        }
-      })
-    }
+   
+    //openid已经在order中得到
+
+    //获取用户个人信息
+    db.collection('User_info').where({
+      openId: app.globalData.user_info.openId
+    }).get().then(res => {
+     // console.log(res)
+      if (res.data.length) {
+        //登录用户信息赋值为全局变量
+        app.globalData.user_info.is_admin = res.data[0].is_admin
+        app.globalData.user_info.name = res.data[0].name
+        app.globalData.user_info.openId = res.data[0].openId
+        app.globalData.user_info.phone_num = res.data[0].phone_num
+        app.globalData.user_info.site = res.data[0].site
+        app.globalData.user_info.sw_num = res.data[0].sw_num
+      }
+    })
     that.setData({
       'user_info.is_admin': app.globalData.user_info.is_admin,
       'user_info.name': app.globalData.user_info.name,
@@ -151,7 +146,8 @@ Page({
       db.collection('User_info').where({
         openId: app.globalData.user_info.openId
       }).get().then(res => {
-        if (res.data.length != 0) { //数据库中找到了该用户的openId
+
+       /* if (res.data.length != 0) { //数据库中找到了该用户的openId
           wx.cloud.callFunction({
             name: 'db_User_info',
             data: {
@@ -171,7 +167,7 @@ Page({
               data: that.data.user_info,
             }
           }).then(console.log)
-        }
+        }*/
       })
     }).catch(() => {
 
