@@ -1,5 +1,5 @@
 .order{
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 .search {
   border-bottom-style: solid;

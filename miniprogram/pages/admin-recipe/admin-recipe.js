@@ -4,8 +4,9 @@ Page({
   data: {
     value: "",
     canteen: "全部",
-    goods: {}
+    goods: []
   },
+
   //删除菜品信息
   del_menu: function(e) {
     console.log(e)
@@ -32,16 +33,47 @@ Page({
   alter_status: function(e) {
     wx.showToast({
       title: '售卖状态更改',
-      icon:'none'
+      icon: 'none'
     })
   },
 
+
   onShow: function() {
-    db.collection("Menu").get().then(res => {
+    this.getData(res => {});
+  },
+
+  onPullDownRefresh: function() {
+    this.setData({
+      goods:[]
+    })
+    this.pageData.skip = 0;
+    this.getData(res => {
+      wx.stopPullDownRefresh();
+    })
+  },
+
+  onReachBottom:function(){
+    this.getData(res=>{})
+  },
+
+  getData: function(callback) {
+    wx.showLoading({
+      title: '数据加载中',
+    })
+    db.collection("Menu").skip(this.pageData.skip).get().then(res => {
+      let oldData = this.data.goods;
       this.setData({
-        goods: res.data
+        goods: oldData.concat(res.data)
+      }, res => {
+        this.pageData.skip = this.pageData.skip +20;
+        wx.hideLoading()
+        callback();
       })
     })
+  },
+
+  pageData: {
+    skip: 0,
   },
 
   addMenu(e) {

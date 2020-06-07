@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "食谱管理",
+  "enablePullDownRefresh": true,
   "usingComponents": {
       "van-skeleton": "../../dist/skeleton/index",
       "van-card": "../../dist/card/index",

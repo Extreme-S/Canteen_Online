@@ -27,7 +27,7 @@ Page({
 
   onShow() {
     var that = this
-   
+
     //openid已经在order中得到
 
     //获取用户个人信息
@@ -167,7 +167,11 @@ Page({
               data: that.data.user_info,
             }
           }).then(console.log)
-        }*/
+        }
+        wx.switchTab({
+          url: '../tab-my/my',
+        })
+
       })
     }).catch(() => {
 
