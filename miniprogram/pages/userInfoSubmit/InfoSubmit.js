@@ -12,6 +12,9 @@ Page({
       phone_f: true
     },
 
+   stuHide: false,
+   adminHide: true,
+
     building: '',
     room: '',
 
@@ -23,6 +26,20 @@ Page({
       site: '010030206',
       sw_num: ''
     }
+  },
+
+  change_to_admin:function(event){
+    this.setData({
+      stuHide: true,
+      adminHide: false,
+    });
+  },
+
+  change_to_stu:function(event){
+    this.setData({
+      stuHide: false,
+      adminHide: true,
+    });
   },
 
   picker_onChange(event) {

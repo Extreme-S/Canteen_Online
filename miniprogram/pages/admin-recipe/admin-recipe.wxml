@@ -12,9 +12,9 @@
           <view slot="price-top"> 窗口：{{item.meal_window}} </view>
         </van-card>
       </navigator>
-      <view slot="right">
-        <van-button bindtap="del_menu" type="danger" data-_id="{{ item._id }}">删除</van-button>
+      <view slot="right" class="display">
         <van-button bindtap="alter_status" type="primary">状态</van-button>
+        <van-button bindtap="del_menu" type="danger" data-_id="{{ item._id }}">删除</van-button>
       </view>
     </van-swipe-cell>
   </view>

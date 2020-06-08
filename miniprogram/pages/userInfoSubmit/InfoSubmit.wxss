@@ -5,9 +5,13 @@
   font-size: 15px;
 }
 
-.change-to-admin {
+.change-status {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: blue;  
   font-size: small;
-  text-align: center;
   text-decoration: underline;
 }

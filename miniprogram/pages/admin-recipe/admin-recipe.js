@@ -26,6 +26,8 @@ Page({
         },
         fail: console.error
       })
+    }).catch(err => {
+      console.log(err);
     })
   },
 

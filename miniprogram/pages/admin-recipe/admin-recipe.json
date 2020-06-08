@@ -6,8 +6,6 @@
       "van-card": "../../dist/card/index",
       "van-button": "../../dist/button/index",
       "van-swipe-cell": "../../dist/swipe-cell/index",
-      "van-dialog": "../../dist/dialog/index",
-      "van-grid": "../../dist/grid/index",
-    "van-grid-item": "../../dist/grid-item/index"
+      "van-dialog": "../../dist/dialog/index"
   }
 }
