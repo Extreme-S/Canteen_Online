@@ -2,13 +2,14 @@ const db = wx.cloud.database()
 const app = getApp()
 Page({
   data: {
-    haveUserInfo: false,
+    
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
-  //加载的时候，通过openid提取用户信息(要时间获取呀)
-  onLoad: function(options) {
+  
+
+  bindGetUserInfo: function (e) {
 
     var that = this;
     //通过openID提取用户信息
@@ -16,9 +17,7 @@ Page({
       openId: app.globalData.user_info.openId
     }).get().then(res => {
       if (!res.data.length) {
-        that.setData({
-          haveUserInfo: false
-        })
+        console.error(err);
       } else {
 
         //登录用户信息赋值为全局变量（openid已有）
@@ -27,17 +26,12 @@ Page({
         app.globalData.user_info.phone_num = res.data[0].phone_num
         app.globalData.user_info.site = res.data[0].site
         app.globalData.user_info.sw_num = res.data[0].sw_num
-        that.setData({
-          haveUserInfo: true
-        })
       }
     })
-  },
 
-  bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
-      var that = this;
+      
       // 获取到用户的信息（头像，昵称）了，打印到控制台上看下
       console.log("用户的信息如下：");
       console.log(e.detail.userInfo);

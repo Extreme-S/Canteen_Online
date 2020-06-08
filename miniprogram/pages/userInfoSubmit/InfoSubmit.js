@@ -25,36 +25,6 @@ Page({
     }
   },
 
-  onShow() {
-    var that = this
-
-    //openid已经在order中得到
-
-    //获取用户个人信息
-    db.collection('User_info').where({
-      openId: app.globalData.user_info.openId
-    }).get().then(res => {
-     // console.log(res)
-      if (res.data.length) {
-        //登录用户信息赋值为全局变量
-        app.globalData.user_info.is_admin = res.data[0].is_admin
-        app.globalData.user_info.name = res.data[0].name
-        app.globalData.user_info.openId = res.data[0].openId
-        app.globalData.user_info.phone_num = res.data[0].phone_num
-        app.globalData.user_info.site = res.data[0].site
-        app.globalData.user_info.sw_num = res.data[0].sw_num
-      }
-    })
-    that.setData({
-      'user_info.is_admin': app.globalData.user_info.is_admin,
-      'user_info.name': app.globalData.user_info.name,
-      'user_info.openId': app.globalData.user_info.openId,
-      'user_info.phone_num': app.globalData.user_info.phone_num,
-      'user_info.site': app.globalData.user_info.site,
-      'user_info.sw_num': app.globalData.user_info.sw_num
-    })
-  },
-
   picker_onChange(event) {
     this.setData({
         selectBuilding: event.detail.value
@@ -143,36 +113,19 @@ Page({
       title: '提示',
       message: '确认提交认证信息?',
     }).then(() => {
-      db.collection('User_info').where({
-        openId: app.globalData.user_info.openId
-      }).get().then(res => {
 
-       /* if (res.data.length != 0) { //数据库中找到了该用户的openId
-          wx.cloud.callFunction({
-            name: 'db_User_info',
-            data: {
-              command: 'update',
-              data: that.data.user_info,
-            }
-          }).then(console.log)
-          wx.showToast({
-            title: '个人信息修改成功',
-            icon: 'none'
-          })
-        } else { //数据库中没有找到改用户openId
-          wx.cloud.callFunction({
-            name: 'db_User_info',
-            data: {
-              command: 'add',
-              data: that.data.user_info,
-            }
-          }).then(console.log)
+      wx.cloud.callFunction({
+        name: 'db_User_info',
+        data: {
+          command: 'add',
+          data: that.data.user_info,
         }
-        wx.switchTab({
-          url: '../tab-my/my',
-        })
+      }).then(console.log)
 
+      wx.switchTab({
+        url: '../tab-my/my',
       })
+
     }).catch(() => {
 
     })
