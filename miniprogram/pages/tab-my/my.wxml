@@ -16,7 +16,7 @@
 <van-cell-group title=" ">
   <van-cell title="学校认证" value="内容" url="../userInfoSubmit/InfoSubmit" />
   <van-cell title="寝室信息" value="内容" />
-  <van-cell title="管理员权限" value="内容" url="../admin/admin" />
+  <van-cell title="管理员仅开发使用" value="内容" url="../admin/admin" />
 </van-cell-group>
 
 <van-cell-group title=" ">

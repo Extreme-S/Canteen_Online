@@ -39,4 +39,23 @@
      </view>
   </van-grid-item>
 
+  <van-grid-item  use-slot bind:click="showPopup" >
+    <view>
+      <van-icon name="setting-o" size="30px" class="command-icon"/>
+      <text class="title">个人信息 </text>
+      <text>\n</text>
+      <text class="desc">信息认证查看与修改</text>
+     </view>
+  </van-grid-item>
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" closeable custom-style="height: 100%; width: 100%;">
+    
+    <van-grid column-num="1" >
+     <van-grid-item use-slot>
+        <van-image round width="50" height="50" src="{{user_info.avatarUrl}}" />
+        <text>\n</text>
+        <view>{{user_info.nickName}}</view>
+      </van-grid-item>
+    </van-grid>
+    
+  </van-popup>
 </van-grid>

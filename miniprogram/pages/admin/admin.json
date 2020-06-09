@@ -2,7 +2,8 @@
   "navigationBarTitleText": "食堂管理",
   "usingComponents": {
     "van-notice-bar": "../../dist/notice-bar/index",
-    "van-icon": "../../dist/icon/index"
-
+    "van-icon": "../../dist/icon/index",
+    "van-popup": "../../dist/popup/index",
+    "van-image": "../../dist/image/index"
   }
 }

@@ -9,7 +9,7 @@
 .command-icon {
   float: right;
   display: flex;
-  align-items: center;
+  align-items: center;  
 }
 
 .title {
