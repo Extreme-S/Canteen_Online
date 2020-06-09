@@ -1,29 +1,35 @@
 import Dialog from '../../dist/dialog/dialog';
+import Toast from '../../dist/toast/toast';
 const db = wx.cloud.database()
 const app = getApp()
+var address = require('../../utils/user_site.js')
 Page({
   data: {
-    columns: ['三公寓一号楼', '三公寓二号楼', '三公寓三号楼', '三公寓四号楼', '三公寓五号楼'],
-    selectBuilding: '三公寓一号楼',
     show: false,
+
     flag: {
       sw_num_f: true,
       room_f: true,
       phone_f: true
     },
 
-   stuHide: false,
-   adminHide: true,
+    stuHide: false,
+    adminHide: true,
 
-    building: '',
-    room: '',
+    value: [0, 0, 0],
+    user_address: {
+      schools: [], //学校
+      departments: [], //部门 （对学生而言，部门是寝室楼，如三公寓；对管理员来说，部门是食堂，如一食堂）
+      floors: [], //楼层
+      numbers: [] //号码 （对学生而言，是房间号；对管理者而言是窗口号码）
+    },
 
     user_info: {
       is_admin: true,
       name: '',
       openId: '',
       phone_num: '',
-      site: '010030206',
+      site: '',
       sw_num: ''
     }
   },
@@ -41,16 +47,59 @@ Page({
       adminHide: true,
     });
   },
-
-  picker_onChange(event) {
+  
+  onLoad: function(event) {
+    var school_id = address.schools[0].id
+    //console.log(address.floors[address.departments[school_id][0].id])
+    //console.log(address.numbers[address.floors[address.departments[school_id][0].id][0].id])
     this.setData({
-        selectBuilding: event.detail.value
-      }),
-      wx.showToast({
-        title: "当前选择：" + this.data.selectBuilding,
-        icon: 'none'
-      })
+      'user_address.departments': address.departments[school_id],
+      'user_address.floors': address.floors[address.departments[school_id][0].id],
+      'user_address.numbers': address.numbers[address.floors[address.departments[school_id][0].id][0].id],
+      'user_info.site': address.numbers[address.floors[address.departments[school_id][0].id][0].id][0].id
+    })
+    console.log(this.data.user_info)
   },
+
+  addressOnChange: function(e) {
+    //console.log(e)
+    var value = e.detail.value
+    var departments = this.data.user_address.departments
+    var floors = this.data.user_address.floors
+    var numbers = this.data.user_address.numbers
+    var select_department = value[0]
+    var select_floor = value[1]
+    var select_number = value[2]
+
+    // 如果楼栋选择项和之前不一样，表示滑动了栏1，此时楼层默认是楼栋的第一组数据，
+    if (this.data.value[0] != select_department) {
+      var department_id = address.departments[address.schools[0].id][select_department].id
+
+      this.setData({
+        value: [select_department, 0, 0],
+        'user_address.floors': address.floors[department_id],
+        'user_address.numbers': address.numbers[address.floors[department_id][0].id],
+      })
+    } else if (this.data.value[1] != select_floor) {
+      // 滑动选择了第二项数据，
+      var floor_id = floors[select_floor].id
+      this.setData({
+        value: [select_department, select_floor, 0],
+        'user_address.numbers': address.numbers[floors[select_floor].id],
+      })
+    } else {
+      // 滑动选择了第三项
+      this.setData({
+        value: [select_department, select_floor, select_number]
+      })
+    }
+    //console.log(this.data.value)
+    this.setData({
+      'user_info.site': this.data.user_address.numbers[select_number].id
+    })
+  },
+
+
 
   showPopup() {
     this.setData({
@@ -63,6 +112,7 @@ Page({
       show: false
     });
   },
+
   //学工号设置
   setNum(event) {
     if (event.detail.length != 10 || isNaN(event.detail)) {
@@ -87,19 +137,6 @@ Page({
     })
   },
 
-  //房间号
-  setRoom(event) {
-    if (event.detail.length != 4 || isNaN(event.detail)) {
-      this.setData({
-        'flag.room_f': false
-      })
-    } else {
-      this.setData({
-        'flag.room_f': true,
-        room: event.detail,
-      })
-    }
-  },
   //电话号码
   setPhone_num(event) {
     if (event.detail.length != 11 || isNaN(event.detail)) {
@@ -130,22 +167,27 @@ Page({
       title: '提示',
       message: '确认提交认证信息?',
     }).then(() => {
-
-      wx.cloud.callFunction({
-        name: 'db_User_info',
+      db.collection('User_info').add({
         data: {
-          command: 'add',
-          data: that.data.user_info,
+          is_admin: that.data.user_info.is_admin,
+          name: that.data.user_info.name,
+          openId: app.globalData.user_info.openId,
+          phone_num: that.data.user_info.phone_num,
+          site: that.data.user_info.site,
+          sw_num: that.data.user_info.sw_num
+        },
+        success: function() {
+          Toast({
+            type: 'success',
+            message: '提交成功',
+            onClose: () => {
+              wx.switchTab({
+                url: '../tab-my/my',
+              })
+            },
+          });
         }
-      }).then(console.log)
-
-      wx.switchTab({
-        url: '../tab-my/my',
       })
-
-    }).catch(() => {
-
-    })
-
+    }).catch(() => {})
   }
 })
