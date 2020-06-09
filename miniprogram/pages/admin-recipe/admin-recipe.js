@@ -1,10 +1,23 @@
 import Dialog from '../../dist/dialog/dialog';
 const db = wx.cloud.database()
+const app = getApp()
+var adminSite = require('../../utils/admin_site.js')
 Page({
   data: {
+    adminWindow:'',
     value: "",
     canteen: "全部",
     goods: []
+  },
+
+  onLoad: function() {
+    //site译码
+    var adminCode = app.globalData.user_info.site.substring(0, 7).concat('00')
+    var j = parseInt(app.globalData.user_info.site.substring(7, 9)) - 1
+    var window = adminSite.windows[adminCode][j]
+    this.setData({
+      adminWindow: window.canteen + window.floor + window.name
+    })
   },
 
   //删除菜品信息
@@ -46,7 +59,7 @@ Page({
 
   onPullDownRefresh: function() {
     this.setData({
-      goods:[]
+      goods: []
     })
     this.pageData.skip = 0;
     this.getData(res => {
@@ -54,8 +67,8 @@ Page({
     })
   },
 
-  onReachBottom:function(){
-    this.getData(res=>{})
+  onReachBottom: function() {
+    this.getData(res => {})
   },
 
   getData: function(callback) {
@@ -63,15 +76,24 @@ Page({
       title: '数据加载中',
     })
     db.collection("Menu").skip(this.pageData.skip).get().then(res => {
+      this.decodeWindow(res.data)
       let oldData = this.data.goods;
       this.setData({
         goods: oldData.concat(res.data)
       }, res => {
-        this.pageData.skip = this.pageData.skip +20;
+        this.pageData.skip = this.pageData.skip + 20;
         wx.hideLoading()
         callback();
       })
     })
+  },
+  decodeWindow: function (goods) {
+    for (var i = 0; i < goods.length; i++) {
+      var floorCode = goods[i].meal_window.substring(0, 7).concat('00')
+      var j = parseInt(goods[i].meal_window.substring(7, 9)) - 1
+      var window = adminSite.windows[floorCode][j]
+      goods[i].meal_window = window.canteen + window.floor + window.name
+    }
   },
 
   pageData: {

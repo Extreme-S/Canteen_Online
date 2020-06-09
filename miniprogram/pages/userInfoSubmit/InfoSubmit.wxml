@@ -22,19 +22,19 @@
     <!--"可以显示默认的城市，使用后级联选择城市反应很慢就不使用了-->
     <picker-view style="width: 100%; height: 150px;" bindchange="addressOnChange" value="{{value}}">
       <picker-view-column>
-        <view wx:key='this' wx:for="{{user_address.departments}}" class="picker-item">{{item.name}}</view>
+        <view wx:key='this' wx:for="{{user_address.dorms}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
       <picker-view-column>
         <view wx:key='this' wx:for="{{user_address.floors}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
       <picker-view-column>
-        <view wx:key='this' wx:for="{{user_address.numbers}}" class="picker-item">{{item.name}}</view>
+        <view wx:key='this' wx:for="{{user_address.rooms}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
     </picker-view>
   </van-popup>
 
   <van-cell-group title="宿舍信息">
-    <van-cell title="地址选择" value="{{user_address.departments[value[0]].name}}{{user_address.floors[value[1]].name}}{{user_address.numbers[value[2]].name}}" is-link bind:click="showPopup" />
+    <van-cell title="地址选择" value="{{user_address.dorms[value[0]].name}}{{user_address.floors[value[1]].name}}{{user_address.rooms[value[2]].name}}" is-link bind:click="showPopup" />
   </van-cell-group>
 
   <text bindtap="change_to_admin" class="change-status">
