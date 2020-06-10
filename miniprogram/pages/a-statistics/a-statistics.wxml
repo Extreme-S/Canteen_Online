@@ -1,5 +1,5 @@
 <van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid-admin-window">
-  <van-grid-item text="管理员所在食堂窗口" text-class="admin-info"/>
+  <van-grid-item text="{{adminWindow}}" text-class="admin-info"/>
 </van-grid>
 
 <van-cell-group title="今日实时订单" />

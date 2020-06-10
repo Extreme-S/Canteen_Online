@@ -1,21 +1,19 @@
 <van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid">
-  <van-grid-item text="{{adminWindow}}" text-class="admin-info"/>
+  <van-grid-item text="{{adminWindow}}" text-class="admin-info" />
 </van-grid>
 
 <van-dialog id="van-dialog" />
 <van-dialog id="van-dialog" />
 <view class="goods-list">
   <view wx:key="this" wx:for="{{goods}}">
-    <van-swipe-cell right-width="120">
+    <van-swipe-cell left-width="{{120}}" right-width="{{120}}">
+      <van-button slot="left" square bindtap="del_menu" type="danger" data-_id="{{ item._id }}">删除</van-button>
       <navigator url="../recipe-modify/recipe-modify?_id={{item._id}}">
         <van-card price="{{ item.meal_price }}" desc="{{ item.meal_info }}" title="{{ item.meal_name }}" thumb="{{ item.meal_img }}">
           <view slot="price-top"> 窗口：{{item.meal_window}} </view>
         </van-card>
       </navigator>
-      <view slot="right" class="display">
-        <van-button bindtap="alter_status" type="primary">状态</van-button>
-        <van-button bindtap="del_menu" type="danger" data-_id="{{ item._id }}">删除</van-button>
-      </view>
+      <van-button slot="right" block bindtap="alter_status" type="primary">状态</van-button>
     </van-swipe-cell>
   </view>
 </view>

@@ -1,5 +1,4 @@
-
-<van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid">
+ <van-grid gutter="{{ 15 }}" column-num="1" custom-class="grid">
   <van-grid-item text="{{adminWindow}}" text-class="admin-info"/>
 </van-grid>
 

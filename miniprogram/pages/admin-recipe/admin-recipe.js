@@ -87,6 +87,7 @@ Page({
       })
     })
   },
+  
   decodeWindow: function (goods) {
     for (var i = 0; i < goods.length; i++) {
       var floorCode = goods[i].meal_window.substring(0, 7).concat('00')

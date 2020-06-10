@@ -41,6 +41,12 @@ Page({
   },
 
   onLoad: function() {
+    var date = new Date()
+    date.setHours(0)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    console.log(date)
+    console.log(date.toLocaleString())
     var that = this;
     //if(app.globalData.user_info.openId == null) {
     wx.cloud.callFunction({

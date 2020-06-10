@@ -11,7 +11,7 @@ const time = {
 Page({
   data: {
     columns: [{
-        values: Object.keys(time),
+        values: Object.keys(time), 
         className: 'column1',
       },
       {
@@ -27,7 +27,7 @@ Page({
       user_info: {}, //用户信息
       meal_id: '', //菜品id
       submission_time: '', //提交时间
-      dilivery_time: '中午11:30' //配送时间
+      dilivery_time: '11:30' //配送时间
     }
   },
 
@@ -63,7 +63,7 @@ Page({
     picker.setColumnValues(1, time[value[0]]);
     //console.log(picker.getValues())
     this.setData({
-      'user_order.dilivery_time': picker.getColumnValue(0) + picker.getColumnValue(1)
+      'user_order.dilivery_time': picker.getColumnValue(1)
     })
   },
 
@@ -75,11 +75,9 @@ Page({
         messageAlign: "left",
       })
       .then(() => {
-        var date = new Date()
         that.setData({
-          'user_order.submission_time': date.toLocaleString(),
+          'user_order.submission_time': new Date(),
         })
-        //console.log(that.data.user_order)
         db.collection('User_orders').add({
           data: that.data.user_order,
           success:function(res){
@@ -90,20 +88,6 @@ Page({
           },
           fail:console.error
         })
-        // wx.cloud.callFunction({
-        //   name: 'db_User_orders',
-        //   data: {
-        //     command: "add",
-        //     data: that.data.user_order
-        //   },
-        //   success: function(res) {
-        //     console.log(res)
-        //     wx.switchTab({
-        //       url: '../tab-orders/orders',
-        //     })
-        //   },
-        //   fail: console.error
-        // })
       })
       .catch(() => {
         // on cancel

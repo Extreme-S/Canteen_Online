@@ -20,8 +20,8 @@ Page({
     })
   },
 
-  onReachBottom: function () {
-    this.getData(res => { });
+  onReachBottom: function() {
+    this.getData(res => {});
   },
 
 
@@ -29,20 +29,30 @@ Page({
     wx.showLoading({
       title: '数据加载中',
     })
-    db.collection('User_orders').where({
-      'user_info.openId': app.globalData.user_info.openId
-    }).skip(this.pageData.skip).get().then(res => {
-      let oldData = this.data.user_orders
-      this.setData({
-        user_orders: oldData.concat(res.data)
-      }, res => {
-        this.pageData.skip = this.pageData.skip + 20;
-        wx.hideLoading()
-        callback()
+    db.collection('User_orders')
+      .where({
+        'user_info.openId': app.globalData.user_info.openId
       })
-    })
+      .orderBy('submission_time','desc')
+      .skip(this.pageData.skip)
+      .get().then(res => {
+        let oldData = this.data.user_orders
+        let newData = res.data
+        //时间格式转换
+        for (var i = 0; i < newData.length; i++) {
+          newData[i].submission_time = newData[i].submission_time.toLocaleString()
+        }
+        this.setData({
+          user_orders: oldData.concat(newData)
+        }, res => {
+          this.pageData.skip = this.pageData.skip + 20;
+          wx.hideLoading()
+          callback()
+        })
+
+      })
   },
-  pageData:{
-    skip:0,
+  pageData: {
+    skip: 0,
   }
 })
