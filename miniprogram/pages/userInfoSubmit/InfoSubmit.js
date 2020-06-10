@@ -2,7 +2,7 @@ import Dialog from '../../dist/dialog/dialog';
 import Toast from '../../dist/toast/toast';
 const db = wx.cloud.database()
 const app = getApp()
-var address = require('../../utils/user_site.js')
+var address = require('../../utils/stu_site.js')
 Page({
   data: {
     show: false,
@@ -19,13 +19,12 @@ Page({
     value: [0, 0, 0],
     user_address: {
       schools: [], //学校
-      departments: [], //部门 （对学生而言，部门是寝室楼，如三公寓；对管理员来说，部门是食堂，如一食堂）
+      dorms: [], //部门 （对学生而言，部门是寝室楼，如三公寓；对管理员来说，部门是食堂，如一食堂）
       floors: [], //楼层
-      numbers: [] //号码 （对学生而言，是房间号；对管理者而言是窗口号码）
+      rooms: [] //号码 （对学生而言，是房间号；对管理者而言是窗口号码）
     },
 
     user_info: {
-      is_admin: true,
       name: '',
       openId: '',
       phone_num: '',
@@ -53,10 +52,10 @@ Page({
     //console.log(address.floors[address.departments[school_id][0].id])
     //console.log(address.numbers[address.floors[address.departments[school_id][0].id][0].id])
     this.setData({
-      'user_address.departments': address.departments[school_id],
-      'user_address.floors': address.floors[address.departments[school_id][0].id],
-      'user_address.numbers': address.numbers[address.floors[address.departments[school_id][0].id][0].id],
-      'user_info.site': address.numbers[address.floors[address.departments[school_id][0].id][0].id][0].id
+      'user_address.dorms': address.dorms[school_id],
+      'user_address.floors': address.floors[address.dorms[school_id][0].id],
+      'user_address.rooms': address.rooms[address.floors[address.dorms[school_id][0].id][0].id],
+      'user_info.site': address.rooms[address.floors[address.dorms[school_id][0].id][0].id][0].id
     })
     console.log(this.data.user_info)
   },
@@ -64,38 +63,38 @@ Page({
   addressOnChange: function(e) {
     //console.log(e)
     var value = e.detail.value
-    var departments = this.data.user_address.departments
+    var dorms = this.data.user_address.dorms
     var floors = this.data.user_address.floors
-    var numbers = this.data.user_address.numbers
-    var select_department = value[0]
+    var rooms = this.data.user_address.rooms
+    var select_dorm = value[0]
     var select_floor = value[1]
-    var select_number = value[2]
+    var select_room = value[2]
 
     // 如果楼栋选择项和之前不一样，表示滑动了栏1，此时楼层默认是楼栋的第一组数据，
-    if (this.data.value[0] != select_department) {
-      var department_id = address.departments[address.schools[0].id][select_department].id
+    if (this.data.value[0] != select_dorm) {
+      var dorm_id = address.dorms[address.schools[0].id][select_dorm].id
 
       this.setData({
-        value: [select_department, 0, 0],
-        'user_address.floors': address.floors[department_id],
-        'user_address.numbers': address.numbers[address.floors[department_id][0].id],
+        value: [select_dorm, 0, 0],
+        'user_address.floors': address.floors[dorm_id],
+        'user_address.rooms': address.rooms[address.floors[dorm_id][0].id],
       })
     } else if (this.data.value[1] != select_floor) {
       // 滑动选择了第二项数据，
       var floor_id = floors[select_floor].id
       this.setData({
-        value: [select_department, select_floor, 0],
-        'user_address.numbers': address.numbers[floors[select_floor].id],
+        value: [select_dorm, select_floor, 0],
+        'user_address.rooms': address.rooms[floors[select_floor].id],
       })
     } else {
       // 滑动选择了第三项
       this.setData({
-        value: [select_department, select_floor, select_number]
+        value: [select_dorm, select_floor, select_room]
       })
     }
     //console.log(this.data.value)
     this.setData({
-      'user_info.site': this.data.user_address.numbers[select_number].id
+      'user_info.site': this.data.user_address.rooms[select_room].id
     })
   },
 
@@ -169,7 +168,6 @@ Page({
     }).then(() => {
       db.collection('User_info').add({
         data: {
-          is_admin: that.data.user_info.is_admin,
           name: that.data.user_info.name,
           openId: app.globalData.user_info.openId,
           phone_num: that.data.user_info.phone_num,
