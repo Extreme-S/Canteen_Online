@@ -17,6 +17,8 @@
     ]
   },
   "pages": [
+    "pages/login/login",
+
     "pages/tab-order/order",
     "pages/orderConfirm/orderConfirm",
 

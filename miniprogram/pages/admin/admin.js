@@ -8,6 +8,17 @@ Page({
   },
 
   onLoad:function(){
+
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.navigateTo({
+            url: '../authorization/authorization',
+          })
+        }
+      }
+    })
+
     //site译码
     var adminCode = app.globalData.user_info.site.substring(0, 7).concat('00')
     var j = parseInt(app.globalData.user_info.site.substring(7, 9)) - 1
