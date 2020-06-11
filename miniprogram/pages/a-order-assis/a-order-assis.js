@@ -8,21 +8,35 @@ Page({
     activeName2: '1',
     adminWindow: '',
 
+    //时间表
+    times: ['11:30', '12:00', '12:30', '17:30', '18:00', '18:30'],
     //当日时间范围
     sdate: new Date(),
     edate: new Date(),
+    orderList: [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
 
-    ordersOfAdmin: {
-      orders_noon_1: [],
-      orders_noon_2: [],
-      orders_noon_3: [],
-      orders_pm_1: [],
-      orders_pm_2: [],
-      orders_pm_3: [],
-    }
+  },
+
+  pageData: {
+    orderList: [
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
   },
 
   onLoad: function() {
+    var that = this
     //初始化当日时间范围
     var sdate = new Date()
     sdate.setHours(0)
@@ -43,6 +57,7 @@ Page({
     this.setData({
       adminWindow: window.canteen + window.floor + window.name
     })
+    //获取数据并解析
     this.getData()
   },
 
@@ -60,41 +75,35 @@ Page({
 
   getData: function(callback) {
     var that = this
-    wx.cloud.callFunction({
-      name: 'aggregate_query',
-      data: {
-        collection:'User_orders',
-        from:'Menu',
-        localField:'meal_id',
-        foreignField:'_id',
-        as:'menu_info'
-      },
-      success: function(res) {
-        console.log(res.result.list)
-      },
-      fail: console.error
-    })
-
-    // db.collection('User_orders').aggregate()
-    //   .lookup({
-    //     from: 'Menu',
-    //     localField: 'meal_id',
-    //     foreignField: '_id',
-    //     as: 'menu_info',
-    //   })
-    //   .end()
-    //   .then(res => console.log(res))
-    //   .catch(err => console.error(err))
-
-    //   db.collection("User_orders")
-    //     .where({
-    //       submission_time: _.gte(that.data.sdate).and(_.lte(that.data.edate))
-    //     })
-    //     .limit(500)
-    //     .orderBy('dilivery_time', 'asc')
-    //     .orderBy('meal_id', 'asc')
-    //     .get().then(res => {
-    //       console.log(res)
-    //     })
+    var times = this.data.times
+    db.collection("User_orders")
+      .where({
+        submission_time: _.gte(that.data.sdate).and(_.lte(that.data.edate)),
+        'meal_orders.meal_window': app.globalData.user_info.site
+      })
+      .limit(500)
+      .orderBy('dilivery_time', 'asc')
+      .orderBy('meal_orders[0]._id', 'asc')
+      .get().then(res => {
+        console.log(res.data)
+        for (var i in res.data) { //遍历该窗口的所有订单
+          for (var j in times) { //遍历判断批次
+            if (res.data[i].dilivery_time == times[j]) { //判断批次
+              //如果没有该菜品就新加入
+              if (i == 0 || res.data[i].meal_orders[0]._id != res.data[i - 1].meal_orders[0]._id || that.pageData.orderList[j].length == 0) {
+                res.data[i].meal_orders[0].cnt = 1
+                that.pageData.orderList[j].push(res.data[i].meal_orders[0])
+              }
+              //如果已有该菜品，cnt++
+              else {
+                that.pageData.orderList[j][that.pageData.orderList[j].length - 1].cnt++
+              }
+            }
+          }
+        }
+        this.setData({
+          orderList: that.pageData.orderList
+        })
+      })
   },
 })
