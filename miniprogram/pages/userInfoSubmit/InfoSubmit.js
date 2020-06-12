@@ -3,13 +3,13 @@ import Toast from '../../dist/toast/toast';
 const db = wx.cloud.database()
 const app = getApp()
 var address = require('../../utils/stu_site.js')
+var adminAddress = require('../../utils/admin_site.js')
 Page({
   data: {
     show: false,
 
     flag: {
       sw_num_f: true,
-      room_f: true,
       phone_f: true
     },
 
@@ -17,12 +17,24 @@ Page({
     adminHide: true,
 
     value: [0, 0, 0],
-    user_address: {
-      schools: [], //学校
-      dorms: [], //部门 （对学生而言，部门是寝室楼，如三公寓；对管理员来说，部门是食堂，如一食堂）
-      floors: [], //楼层
-      rooms: [] //号码 （对学生而言，是房间号；对管理者而言是窗口号码）
+
+
+    //学生地址列表
+    stu_address: {
+      schools: [],
+      dorms: [],
+      floors: [],
+      rooms: []
     },
+
+    //管理员地址列表
+    adm_address: {
+      schools: [],
+      canteens: [],
+      floors: [],
+      windows: []
+    },
+
 
     user_info: {
       name: '',
@@ -33,39 +45,49 @@ Page({
     }
   },
 
-  change_to_admin:function(event){
+  change_to_admin: function(event) {
+    var school_id = address.schools[0].id
     this.setData({
       stuHide: true,
       adminHide: false,
+      'user_info.site': adminAddress.windows[adminAddress.floors[adminAddress.canteens[school_id][0].id][0].id][0].id,
+      value: [0, 0, 0]
     });
   },
 
-  change_to_stu:function(event){
+  change_to_stu: function(event) {
+    var school_id = address.schools[0].id
     this.setData({
       stuHide: false,
       adminHide: true,
+      'user_info.site': address.rooms[address.floors[address.dorms[school_id][0].id][0].id][0].id,
+      value: [0, 0, 0]
     });
   },
-  
+
   onLoad: function(event) {
     var school_id = address.schools[0].id
-    //console.log(address.floors[address.departments[school_id][0].id])
-    //console.log(address.numbers[address.floors[address.departments[school_id][0].id][0].id])
+    var cschool_id = adminAddress.schools[0].id
     this.setData({
-      'user_address.dorms': address.dorms[school_id],
-      'user_address.floors': address.floors[address.dorms[school_id][0].id],
-      'user_address.rooms': address.rooms[address.floors[address.dorms[school_id][0].id][0].id],
-      'user_info.site': address.rooms[address.floors[address.dorms[school_id][0].id][0].id][0].id
+      'stu_address.dorms': address.dorms[school_id],
+      'stu_address.floors': address.floors[address.dorms[school_id][0].id],
+      'stu_address.rooms': address.rooms[address.floors[address.dorms[school_id][0].id][0].id],
+      'user_info.site': address.rooms[address.floors[address.dorms[school_id][0].id][0].id][0].id, //默认学生信息填写界面
+
+      'adm_address.canteens': adminAddress.canteens[cschool_id],
+      'adm_address.floors': adminAddress.floors[adminAddress.canteens[cschool_id][0].id],
+      'adm_address.windows': adminAddress.windows[adminAddress.floors[adminAddress.canteens[cschool_id][0].id][0].id],
     })
-    console.log(this.data.user_info)
+    console.log(this.data.stu_address)
   },
 
-  addressOnChange: function(e) {
+  //学生地址信息选择器事件
+  stuAddressOnChange: function(e) {
     //console.log(e)
     var value = e.detail.value
-    var dorms = this.data.user_address.dorms
-    var floors = this.data.user_address.floors
-    var rooms = this.data.user_address.rooms
+    var dorms = this.data.stu_address.dorms
+    var floors = this.data.stu_address.floors
+    var rooms = this.data.stu_address.rooms
     var select_dorm = value[0]
     var select_floor = value[1]
     var select_room = value[2]
@@ -73,18 +95,17 @@ Page({
     // 如果楼栋选择项和之前不一样，表示滑动了栏1，此时楼层默认是楼栋的第一组数据，
     if (this.data.value[0] != select_dorm) {
       var dorm_id = address.dorms[address.schools[0].id][select_dorm].id
-
       this.setData({
         value: [select_dorm, 0, 0],
-        'user_address.floors': address.floors[dorm_id],
-        'user_address.rooms': address.rooms[address.floors[dorm_id][0].id],
+        'stu_address.floors': address.floors[dorm_id],
+        'stu_address.rooms': address.rooms[address.floors[dorm_id][0].id],
       })
     } else if (this.data.value[1] != select_floor) {
       // 滑动选择了第二项数据，
       var floor_id = floors[select_floor].id
       this.setData({
         value: [select_dorm, select_floor, 0],
-        'user_address.rooms': address.rooms[floors[select_floor].id],
+        'stu_address.rooms': address.rooms[floors[select_floor].id],
       })
     } else {
       // 滑动选择了第三项
@@ -92,12 +113,46 @@ Page({
         value: [select_dorm, select_floor, select_room]
       })
     }
-    //console.log(this.data.value)
     this.setData({
-      'user_info.site': this.data.user_address.rooms[select_room].id
+      'user_info.site': this.data.stu_address.rooms[select_room].id,
     })
   },
 
+  //管理员地址选择器事件
+  adminAddressOnChange: function(e) {
+    var value = e.detail.value
+    var canteens = this.data.adm_address.canteens
+    var floors = this.data.adm_address.floors
+    var windows = this.data.adm_address.windows
+    var select_canteen = value[0]
+    var select_floor = value[1]
+    var select_window = value[2]
+
+    // 如果楼栋选择项和之前不一样，表示滑动了栏1，此时楼层默认是楼栋的第一组数据，
+    if (this.data.value[0] != select_canteen) {
+      var canteen_id = adminAddress.canteens[adminAddress.schools[0].id][select_canteen].id
+      this.setData({
+        value: [select_canteen, 0, 0],
+        'adm_address.floors': adminAddress.floors[canteen_id],
+        'adm_address.windows': adminAddress.windows[adminAddress.floors[canteen_id][0].id],
+      })
+    } else if (this.data.value[1] != select_floor) {
+      // 滑动选择了第二项数据，
+      var floor_id = floors[select_floor].id
+      this.setData({
+        value: [select_canteen, select_floor, 0],
+        'adm_address.windows': adminAddress.windows[floors[select_floor].id],
+      })
+    } else {
+      // 滑动选择了第三项
+      this.setData({
+        value: [select_canteen, select_floor, select_window]
+      })
+    }
+    this.setData({
+      'user_info.site': this.data.adm_address.windows[select_window].id,
+    })
+  },
 
 
   showPopup() {

@@ -11,30 +11,28 @@
 <!--学生用户认证-->
 <view hidden="{{stuHide}}">
   <van-cell-group title="学生信息">
-    <van-field value="{{ user_info.sw_num }}" label="学号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}" />
+    <van-field value="{{ user_info.sw_num }}" label="学号" placeholder="请输入学号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学号'}}" />
     <van-field value="{{ user_info.name }}" label="姓名" placeholder="请输入姓名" border="{{ false }}" input-align="right" bind:change="setName" />
     <van-field value="{{ user_info.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}" />
   </van-cell-group>
 
-
-  <!-- 地址选择 弹出层-->
+  <!-- 学生宿舍地址选择 弹出层-->
   <van-popup show="{{ show }}" position="bottom" custom-style="height: 40%;" bind:close="onClose">
-    <!--"可以显示默认的城市，使用后级联选择城市反应很慢就不使用了-->
-    <picker-view style="width: 100%; height: 150px;" bindchange="addressOnChange" value="{{value}}">
+    <picker-view style="width: 100%; height: 150px;" bindchange="stuAddressOnChange" value="{{value}}">
       <picker-view-column>
-        <view wx:key='this' wx:for="{{user_address.dorms}}" class="picker-item">{{item.name}}</view>
+        <view wx:key='this' wx:for="{{stu_address.dorms}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
       <picker-view-column>
-        <view wx:key='this' wx:for="{{user_address.floors}}" class="picker-item">{{item.name}}</view>
+        <view wx:key='this' wx:for="{{stu_address.floors}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
       <picker-view-column>
-        <view wx:key='this' wx:for="{{user_address.rooms}}" class="picker-item">{{item.name}}</view>
+        <view wx:key='this' wx:for="{{stu_address.rooms}}" class="picker-item">{{item.name}}</view>
       </picker-view-column>
     </picker-view>
   </van-popup>
 
   <van-cell-group title="宿舍信息">
-    <van-cell title="地址选择" value="{{user_address.dorms[value[0]].name}}{{user_address.floors[value[1]].name}}{{user_address.rooms[value[2]].name}}" is-link bind:click="showPopup" />
+    <van-cell title="地址选择" label="{{stu_address.dorms[value[0]].name}}{{stu_address.floors[value[1]].name}}{{stu_address.rooms[value[2]].name}}" is-link bind:click="showPopup" />
   </van-cell-group>
 
   <text bindtap="change_to_admin" class="change-status">
@@ -47,23 +45,33 @@
 <!--管理员用户认证-->
 <view hidden="{{adminHide}}">
   <van-cell-group title="管理员信息">
-    <van-field value="{{ user_info.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}"/>
+    <van-field value="{{ user_info.sw_num }}" label="学工号" placeholder="请输入学工号" border="{{ false }}" input-align="right" bind:change="setNum" error-message="{{ flag.sw_num_f ? '' : '请输入有效学工号'}}" />
     <van-field value="{{ user_info.name }}" label="姓名" placeholder="请输入姓名" border="{{ false }}" input-align="right" bind:change="setName" />
-    <van-field value="{{ user_info.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}"/>
+    <van-field value="{{ user_info.phone_num }}" label="电话" placeholder="请输入电话号码" border="{{ false }}" input-align="right" bind:change="setPhone_num" error-message="{{ flag.phone_f ? '' : '请输入有效电话号码'}}" />
   </van-cell-group>
 
-      <!--食堂信息：弹出层选择-->
-  <van-popup show="{{ show }}" position="bottom" custom-style="height: 45%;" bind:close="onClose">
-    <van-picker columns="{{ columns }}" bind:change="picker_onChange" />
+  <!-- 供餐者地址选择 弹出层-->
+  <van-popup show="{{ show }}" position="bottom" custom-style="height: 40%;" bind:close="onClose">
+    <picker-view style="width: 100%; height: 150px;" bindchange="adminAddressOnChange" value="{{value}}">
+      <picker-view-column>
+        <view wx:key='this' wx:for="{{adm_address.canteens}}" class="picker-item">{{item.name}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:key='this' wx:for="{{adm_address.floors}}" class="picker-item">{{item.name}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:key='this' wx:for="{{adm_address.windows}}" class="picker-item">{{item.name}}</view>
+      </picker-view-column>
+    </picker-view>
   </van-popup>
-  <van-cell-group title="食堂信息">
-    <van-cell title="食堂选择" value="{{selectBuilding}}" is-link bind:click="showPopup" />
-    <van-field value="{{ value_room }}" label="窗口选择" placeholder="请输入房间号" border="{{ false }}" input-align="right" bind:change="setRoom" error-message="{{ flag.room_f ? '' : '请输入4位有效房间号（如0516）'}}"/>
+
+  <van-cell-group title="供餐地址信息">
+    <van-cell title="地址选择" label="{{adm_address.canteens[value[0]].name}}{{adm_address.floors[value[1]].name}}{{adm_address.windows[value[2]].name}}" is-link bind:click="showPopup" />
   </van-cell-group>
 
   <text bindtap="change_to_stu" class="change-status">
     返回学生认证
-  </text>
+  </text> 
 
 </view>
 
