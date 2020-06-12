@@ -25,8 +25,8 @@ Page({
     good: {},
     user_order: {
       user_info: {}, //用户信息
-      meal_id: '', //菜品id
-      submission_time: '', //提交时间
+      meal_orders: [], //菜品订单
+      submission_time: new Date(), //提交时间
       dilivery_time: '11:30' //配送时间
     }
   },
@@ -39,7 +39,7 @@ Page({
       this.setData({
         good: res.data,
         'user_order.user_info': app.globalData.user_info, //初始化订单中用户信息
-        'user_order.meal_id': res.data._id //初始化订单中meal_id
+        'user_order.meal_orders': that.data.user_order.meal_orders.concat(res.data) //初始化订单信息meal_orders
       })
     })
   },
