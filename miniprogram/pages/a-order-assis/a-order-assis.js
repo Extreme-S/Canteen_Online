@@ -85,7 +85,7 @@ Page({
       .orderBy('dilivery_time', 'asc')
       .orderBy('meal_orders[0]._id', 'asc')
       .get().then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         for (var i in res.data) { //遍历该窗口的所有订单
           for (var j in times) { //遍历判断批次
             if (res.data[i].dilivery_time == times[j]) { //判断批次

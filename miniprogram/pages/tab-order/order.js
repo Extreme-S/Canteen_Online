@@ -5,18 +5,6 @@ Page({
   data: {
     value: "",
     show: false,
-    canteen_selected: {
-      name: "全部",
-      site:"011000000"
-    },
-
-    canteens:[{//能不能接入adminsite文件中查找
-      name: "全部",
-      site: "011000000"//01-100（0000）代表全部食堂
-    }, {
-      name: "第一食堂",
-      site: "011010101"//01-101-0000代表一食堂
-    }],
     goods: [],
     activeKey: 0,
   },
@@ -25,7 +13,7 @@ Page({
   showPopup: function(event) {
     this.setData({
       show: true
-    }); 
+    });
   },
 
   //弹出层的关闭
@@ -102,6 +90,7 @@ Page({
       })
     })
   },
+
   //译码
   decodeWindow: function(goods) {
     //console.log(goods)
@@ -118,4 +107,3 @@ Page({
     skip: 0,
   }
 })
-

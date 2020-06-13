@@ -78,7 +78,6 @@ Page({
       'adm_address.floors': adminAddress.floors[adminAddress.canteens[cschool_id][0].id],
       'adm_address.windows': adminAddress.windows[adminAddress.floors[adminAddress.canteens[cschool_id][0].id][0].id],
     })
-    console.log(this.data.stu_address)
   },
 
   //学生地址信息选择器事件
@@ -210,13 +209,13 @@ Page({
     var that = this
     var f = this.data.flag
     var d = this.data.user_info
-    if (d.sw_num.length == 0 || !f.sw_num_f || d.name == 0 || d.phone_num == 0 || !f.phone_f || this.data.room == 0 || !f.room_f) {
-      wx.showToast({
-        title: '请输入有效信息',
-        icon: 'none'
-      })
-      return;
-    }
+    // if (d.sw_num.length == 0 || !f.sw_num_f || d.name == 0 || d.phone_num == 0 || !f.phone_f || this.data.room == 0 || !f.room_f) {
+    //   wx.showToast({
+    //     title: '请输入有效信息',
+    //     icon: 'none'
+    //   })
+    //   return;
+    // }
     Dialog.confirm({
       title: '提示',
       message: '确认提交认证信息?',
