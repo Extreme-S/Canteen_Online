@@ -1,11 +1,9 @@
 <view class="order">
-  <van-search class="search" value="{{ value }}" shape="round" use-left-icon-slot="false" right-icon="search" placeholder="请输入搜索关键词" bind:search="onSearch">
-    <view slot="label" class="canteen-view" bindtap="showPopup">
-      <text class="canteen-select">{{canteen}}</text>
-      <van-icon name="arrow-down" />
-    </view>
-    <van-popup show="{{ show }}" bind:close="onClose" position="left">内容</van-popup>
+<navigator url="../searchPage/searchPage">
+  <van-search class="search" readonly='true' value="{{ value }}" shape="round" use-left-icon-slot="false" right-icon="search" placeholder="请输入搜索关键词" bind:search="onSearch">
   </van-search>
+</navigator>
+
 
   <!-- 商品栏 -->
   <view wx:key="this" wx:for="{{goods}}">

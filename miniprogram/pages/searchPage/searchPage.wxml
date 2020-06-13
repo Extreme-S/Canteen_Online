@@ -1,0 +1,13 @@
+<van-search class="search" focus='true' value="{{ value }}" shape="round" use-left-icon-slot="false" right-icon="search" placeholder="请输入搜索关键词" bind:change="onChange">
+</van-search>
+
+<!-- 商品栏 -->
+<view wx:key="this" wx:for="{{goods}}">
+  <navigator url="../orderConfirm/orderConfirm?_id={{item._id}}">
+    <van-card price="{{ item.meal_price }}" thumb="{{ item.meal_img }}">
+      <text slot="title" class="card-title">{{ item.meal_name }}\n</text>
+      <text slot="desc" class="card-desc">{{ item.meal_info }}</text>
+      <view slot="price-top">{{item.meal_window}}</view>
+    </van-card>
+  </navigator>
+</view>

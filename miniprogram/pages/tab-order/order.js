@@ -5,7 +5,6 @@ Page({
   data: {
     value: "",
     show: false,
-    canteen: "全部",
     goods: [],
   },
 
@@ -78,6 +77,7 @@ Page({
       })
     })
   },
+  
   //译码
   decodeWindow: function(goods) {
     //console.log(goods)

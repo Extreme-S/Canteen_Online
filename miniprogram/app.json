@@ -36,7 +36,9 @@
     "pages/a-order-assis/a-order-assis",
     "pages/a-order-detail/a-order-detail",
 
-    "pages/authorization/authorization"
+    "pages/authorization/authorization",
+
+    "pages/searchPage/searchPage"
 
   ],
   "window": {
