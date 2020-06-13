@@ -3,10 +3,20 @@
   <!--用wx:for绑定good数组，用数组中各项的数据重复渲染该组件-->
   <!--此个列表是动态列表，要加wx:key字段-->
 
-  <van-card 
-  desc="订单创建时间:{{ item.submission_time }}  订单预计送达：{{item.dilivery_time}}" 
-  title="订单编号：{{ item._id }}"
-  >
-  </van-card>
+  <van-panel custom-class="panel">
+    <view slot="header">
+      <view class="title-window" >食堂：{{ item.meal_orders[0].meal_window }}</view>
+      <view class="desc-sub-time">订单创建时间:{{ item.submission_time }}</view>
+    </view>
+    <van-card 
+      desc="订单预计送达：{{item.dilivery_time}}"   desc-class="card-desc"
+      title="{{item.meal_orders[0].meal_name}}"  title-class="card-title"
+      thumb="{{item.meal_orders[0].meal_img}}"   
+      price="{{item.meal_orders[0].meal_price}}"  
+      custom-class="card"
+    >
+    </van-card>
+  </van-panel>
+  
 
 </view>

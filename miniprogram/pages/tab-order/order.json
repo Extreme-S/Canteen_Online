@@ -6,6 +6,8 @@
     "van-divider": "../../dist/divider/index",
     "van-card": "../../dist/card/index",
     "van-button": "../../dist/button/index",
-    "van-popup": "../../dist/popup/index"
+    "van-popup": "../../dist/popup/index",
+    "van-sidebar": "../../dist/sidebar/index",
+    "van-sidebar-item": "../../dist/sidebar-item/index"
   }
 }

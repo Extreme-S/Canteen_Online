@@ -46,8 +46,8 @@
       <text class="desc">信息认证查看与修改</text>
      </view>
   </van-grid-item>
+  <!--弹出层-->
   <van-popup show="{{ show }}" bind:close="onClose" position="bottom" closeable custom-style="height: 100%; width: 100%;">
-    
     <van-grid column-num="1" >
      <van-grid-item use-slot>
         <van-image round width="50" height="50" src="{{user_info.avatarUrl}}" />
@@ -55,6 +55,9 @@
         <view>{{user_info.nickName}}</view>
       </van-grid-item>
     </van-grid>
-    
+    <van-cell title="姓名" value="{{app.globalData.user_info.name}}"/>
+    <van-cell title="工号" value="{{app.globalData.user_info.sw_num}}"/>
+    <van-cell title="窗口" value="{{app.globalData.user_info.site}}"/>
   </van-popup>
+
 </van-grid>

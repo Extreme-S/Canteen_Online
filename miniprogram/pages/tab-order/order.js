@@ -5,21 +5,45 @@ Page({
   data: {
     value: "",
     show: false,
-    canteen: "全部",
+    canteen_selected: {
+      name: "全部",
+      site:"011000000"
+    },
+
+    canteens:[{//能不能接入adminsite文件中查找
+      name: "全部",
+      site: "011000000"//01-100（0000）代表全部食堂
+    }, {
+      name: "第一食堂",
+      site: "011010101"//01-101-0000代表一食堂
+    }],
     goods: [],
+    activeKey: 0,
   },
 
+  //弹出层的显示
   showPopup: function(event) {
     this.setData({
       show: true
     }); 
   },
 
+  //弹出层的关闭
   onClose() {
     this.setData({
       show: false
     });
   },
+
+  //弹出层内容：侧边栏状态切换
+  onChange(event) {
+    this.setData({
+      canteen_selected: this.data.canteens[event.detail],
+      show: false,
+    })
+  },
+
+
 
   onShow: function() {
     this.getTabBar().init(); //初始化底部导航栏

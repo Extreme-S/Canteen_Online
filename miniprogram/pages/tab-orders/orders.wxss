@@ -1,1 +1,32 @@
 /* pages/tab-orders/orders.wxss */
+.title-window{
+  margin-left: 5px;
+  padding: 5px;
+  font-size: medium;
+}
+
+.desc-sub-time{
+  font-size: small;
+  margin-left: 8px;
+  padding: 2px;
+  color: gray;
+}
+
+.panel{
+  margin: 5px;
+  border-radius: 20px;
+}
+
+.card{
+  background: white !important;
+  border-top: whitesmoke dashed;
+}
+
+.card-title{
+  font-size: medium;
+  margin-bottom: 5  px;
+}
+
+.card-desc{
+  font-size: small;
+}

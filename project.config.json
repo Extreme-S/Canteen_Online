@@ -123,6 +123,12 @@
 					"pathName": "pages/a-order-assis/a-order-assis",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "用户：订单页面",
+					"pathName": "pages/tab-orders/orders",
+					"scene": null
 				}
 			]
 		}
