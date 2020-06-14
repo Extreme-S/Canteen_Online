@@ -68,8 +68,6 @@ Page({
     date.setHours(0)
     date.setMinutes(0)
     date.setSeconds(0)
-    console.log(date)
-    console.log(date.toLocaleString())
   },
 
 

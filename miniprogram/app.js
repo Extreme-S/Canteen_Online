@@ -2,7 +2,6 @@
 App({
   globalData: {
     user_info: { //order页面加载时被初始化
-      is_admin: true,
       name: null,
       openId: null,
       phone_num: null,
