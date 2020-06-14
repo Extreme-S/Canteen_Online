@@ -1,4 +1,6 @@
 <!-- 订单栏 -->
+<view class="ordersPage">
+<view>我的订单</view>
 <view wx:key="this" wx:for="{{user_orders}}">
   <!--用wx:for绑定good数组，用数组中各项的数据重复渲染该组件-->
   <!--此个列表是动态列表，要加wx:key字段-->
@@ -17,6 +19,5 @@
     >
     </van-card>
   </van-panel>
-  
-
+</view>
 </view>

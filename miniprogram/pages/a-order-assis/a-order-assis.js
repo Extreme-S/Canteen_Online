@@ -4,8 +4,8 @@ const _ = db.command
 var adminSite = require('../../utils/admin_site.js')
 Page({
   data: {
-    activeName1: '1',
-    activeName2: '1',
+    activeName1: 0,
+    activeName2: 0,
     adminWindow: '',
 
     //时间表
@@ -13,26 +13,13 @@ Page({
     //当日时间范围
     sdate: new Date(),
     edate: new Date(),
-    orderList: [
-      [],
-      [],
-      [],
-      [],
-      [],
-      []
-    ],
-
+    orderList: [[], [], [], [], [], []],
+    orderCnt: [0, 0, 0, 0, 0, 0]
   },
 
   pageData: {
-    orderList: [
-      [],
-      [],
-      [],
-      [],
-      [],
-      []
-    ],
+    orderList: [[], [], [], [], [], []],
+    orderCnt: [0, 0, 0, 0, 0, 0]
   },
 
   onLoad: function() {
@@ -98,11 +85,13 @@ Page({
               else {
                 that.pageData.orderList[j][that.pageData.orderList[j].length - 1].cnt++
               }
+              that.pageData.orderCnt[j]++;
             }
           }
         }
         this.setData({
-          orderList: that.pageData.orderList
+          orderList: that.pageData.orderList,
+          orderCnt: that.pageData.orderCnt
         })
       })
   },

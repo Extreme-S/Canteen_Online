@@ -1,5 +1,6 @@
 import Dialog from '../../dist/dialog/dialog';
 const db = wx.cloud.database();
+const app = getApp();
 const Menu = db.collection('Menu');
 const _ = db.command;
 Page({
@@ -7,21 +8,19 @@ Page({
     good: {},
     _id: null
   },
+
   //选择图片
   selectImage: function() {
     var pagethis = this;
     wx.chooseImage({
       success: function(res) {
-        //console.log(res)
         wx.cloud.uploadFile({
           cloudPath: `${Math.floor(Math.random()*10000000)}.png`,
           filePath: res.tempFilePaths[0]
         }).then(res => {
-          //console.log("选择的图片：" + res.fileID)
           pagethis.setData({
             'good.meal_img': res.fileID
           })
-          //console.log(pagethis.data)
         }).catch(err => {
           console.error(err)
         })
@@ -36,7 +35,6 @@ Page({
     })
     if (options._id != 'null') {
       Menu.doc(options._id).get().then(res => {
-        // console.log(res)
         this.setData({
           good: res.data
         })
@@ -46,7 +44,6 @@ Page({
 
   //表单提交
   onSubmit: function(event) {
-    //console.log(event)
     if (!event.detail.value.meal_name || !event.detail.value.meal_price) {
       wx.showToast({
         title: '请填入必要信息',
@@ -63,7 +60,8 @@ Page({
           'good.meal_img': this.data.good.meal_img,
           'good.meal_name': event.detail.value.meal_name,
           'good.meal_info': event.detail.value.meal_info,
-          'good.meal_price': event.detail.value.meal_price  
+          'good.meal_price': event.detail.value.meal_price,
+          'good.meal_window':app.globalData.user_info.site
         })
         //console.log(this.data.good)
         //数据更新

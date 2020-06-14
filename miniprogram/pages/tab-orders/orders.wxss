@@ -30,3 +30,6 @@
 .card-desc{
   font-size: small;
 }
+.ordersPage{
+   margin-bottom: 50px;
+}

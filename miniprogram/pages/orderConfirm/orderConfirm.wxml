@@ -13,4 +13,4 @@
 
 <van-dialog id="van-dialog" />
 <van-toast id="van-toast" />
-<van-submit-bar price="{{ 1950 }}" button-text="提交订单" bind:submit="onSubmit" />
+<van-submit-bar price="{{price}}" button-text="提交订单" bind:submit="onSubmit" />

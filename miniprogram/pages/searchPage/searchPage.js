@@ -7,7 +7,6 @@ Page({
   },
 
   onChange(e) {
-    console.log(e.detail)
     db.collection('Menu')
       .where({
         meal_name:db.RegExp({
@@ -18,7 +17,6 @@ Page({
       .limit(500)
       .get()
       .then(res => {
-        console.log(res.data)
         this.decodeWindow(res.data)
         this.setData({
           goods: res.data,

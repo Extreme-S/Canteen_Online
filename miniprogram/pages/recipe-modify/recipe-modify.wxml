@@ -7,5 +7,5 @@
   <van-field name="meal_price" right-icon="gold-coin-o" required value="{{good.meal_price}}" label="售价" placeholder="请输入售价" />
   <!-- 确认 -->
   <van-dialog id="van-dialog" />
-  <button class="subbtn" form-type="submit"> {{_id==null ? "确认添加" :"确认修改"}} </button>
+  <button style="width:100%;" class="subbtn" form-type="submit"> {{_id==null ? "确认添加" :"确认修改"}} </button>
 </form>

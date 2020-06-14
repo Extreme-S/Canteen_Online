@@ -13,14 +13,13 @@
 </van-grid>
 
 
-<van-cell-group title=" ">
-  <van-cell title="学校认证" value="内容" url="../userInfoSubmit/InfoSubmit" />
-  <van-cell title="寝室信息" value="内容" />
-  <van-cell title="管理员仅开发使用" value="内容" url="../admin/admin" />
+<van-cell-group title="我的信息">
+  <van-cell title="学校认证" value="上海理工大学"  />
+  <van-cell title="寝室信息" value="{{stu_address}}" />
 </van-cell-group>
 
-<van-cell-group title=" ">
-  <van-cell title="隐私政策" value="内容" />
-  <van-cell title="问题反馈" value="内容" />
-  <van-cell title="关于我们" value="内容" />
+<van-cell-group title="关于">
+  <van-cell title="隐私政策" value="" />
+  <van-cell title="问题反馈" value="" />
+  <van-cell title="关于我们" value="" />
 </van-cell-group>

@@ -9,7 +9,7 @@ Page({
     activeKey: 0,
   },
 
-  //弹出层的显示
+  //弹出层的显示 
   showPopup: function(event) {
     this.setData({
       show: true
