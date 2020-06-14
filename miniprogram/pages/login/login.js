@@ -6,7 +6,7 @@ Page({
   onLoad: function(options) {
     //从缓存中读取用户数据
     var json = wx.getStorageSync('userOtherInfo')
-
+    console.log(json)
     //缓存命中
     if (json) {
       var obj = JSON.parse(json)

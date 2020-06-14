@@ -35,9 +35,14 @@
     <van-cell title="地址选择" label="{{stu_address.dorms[value[0]].name}}{{stu_address.floors[value[1]].name}}{{stu_address.rooms[value[2]].name}}" is-link bind:click="showPopup" />
   </van-cell-group>
 
+  <van-cell-group title=" " />
+  <van-cell title="管理员认证入口" is-link  bind:click="change_to_admin"/>
+
+<!--
   <text bindtap="change_to_admin" class="change-status">
     管理员认证入口
   </text>
+-->
 
 </view>
 
@@ -69,9 +74,14 @@
     <van-cell title="地址选择" label="{{adm_address.canteens[value[0]].name}}{{adm_address.floors[value[1]].name}}{{adm_address.windows[value[2]].name}}" is-link bind:click="showPopup" />
   </van-cell-group>
 
+   <van-cell-group title=" " />
+  <van-cell title="返回学生认证" is-link  bind:click="change_to_stu"/>
+
+<!--
   <text bindtap="change_to_stu" class="change-status">
     返回学生认证
   </text> 
+-->
 
 </view>
 
