@@ -5,10 +5,15 @@ Page({
     value: "",
     show: false,
     adminWindow:'',
+    user_info:{}
   },
 
   onLoad:function(){
-
+    var that = this;
+    this.setData({
+      user_info:app.globalData.user_info
+    })
+    //判断授权
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
@@ -18,15 +23,15 @@ Page({
         }
       }
     })
-
     //site译码
-    var adminCode = app.globalData.user_info.site.substring(0, 7).concat('00')
+    console.log(this.data.user_info)
+    var adminCode = this.data.user_info.site.substring(0, 7).concat('00')
     var j = parseInt(app.globalData.user_info.site.substring(7, 9)) - 1
     var window = adminSite.windows[adminCode][j]
     this.setData({
-      adminWindow: window.canteen + window.floor + window.name
+     'adminWindow': window.canteen + window.floor + window.name
     })
-    var that = this;
+    //获取信息
     wx.getUserInfo({
       success: function (res) {
         that.setData({

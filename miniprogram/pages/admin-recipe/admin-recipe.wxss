@@ -1,11 +1,21 @@
 .admin-info {
   font-size: 20px !important;
 }
+
 .grid {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-.goods-list{
+
+.goods-list {
   margin-bottom: 60px;
 }
 
+.right-slot {
+  display: flex;
+  flex-direction: row;
+}
+.btn{
+  width: 60px !important;
+  height: 100px !important;
+}

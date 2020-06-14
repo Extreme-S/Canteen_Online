@@ -4,13 +4,14 @@ const app = getApp()
 var adminSite = require('../../utils/admin_site.js')
 Page({
   data: {
-    adminWindow:'',
+    adminWindow: '',
     value: "",
     canteen: "全部",
     goods: []
   },
 
   onLoad: function() {
+
     //site译码
     var adminCode = app.globalData.user_info.site.substring(0, 7).concat('00')
     var j = parseInt(app.globalData.user_info.site.substring(7, 9)) - 1
@@ -22,7 +23,6 @@ Page({
 
   //删除菜品信息
   del_menu: function(e) {
-    console.log(e)
     Dialog.confirm({
       title: '提示',
       message: '确认删除该菜品信息？',
@@ -75,20 +75,26 @@ Page({
     wx.showLoading({
       title: '数据加载中',
     })
-    db.collection("Menu").skip(this.pageData.skip).get().then(res => {
-      this.decodeWindow(res.data)
-      let oldData = this.data.goods;
-      this.setData({
-        goods: oldData.concat(res.data)
-      }, res => {
-        this.pageData.skip = this.pageData.skip + 20;
-        wx.hideLoading()
-        callback();
+    db.collection("Menu")
+      .where({
+        meal_window: app.globalData.user_info.site
       })
-    })
+      .skip(this.pageData.skip)
+      .get()
+      .then(res => {
+        this.decodeWindow(res.data)
+        let oldData = this.data.goods;
+        this.setData({
+          goods: oldData.concat(res.data)
+        }, res => {
+          this.pageData.skip = this.pageData.skip + 20;
+          wx.hideLoading()
+          callback();
+        })
+      })
   },
-  
-  decodeWindow: function (goods) {
+
+  decodeWindow: function(goods) {
     for (var i = 0; i < goods.length; i++) {
       var floorCode = goods[i].meal_window.substring(0, 7).concat('00')
       var j = parseInt(goods[i].meal_window.substring(7, 9)) - 1

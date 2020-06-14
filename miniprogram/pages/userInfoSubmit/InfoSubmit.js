@@ -206,9 +206,9 @@ Page({
   },
 
   submit_info: function() {
-    var that = this
-    var f = this.data.flag
-    var d = this.data.user_info
+    // var that = this
+    // var f = this.data.flag
+    // var d = this.data.user_info
     // if (d.sw_num.length == 0 || !f.sw_num_f || d.name == 0 || d.phone_num == 0 || !f.phone_f || this.data.room == 0 || !f.room_f) {
     //   wx.showToast({
     //     title: '请输入有效信息',
@@ -223,7 +223,6 @@ Page({
       db.collection('User_info').add({
         data: {
           name: that.data.user_info.name,
-          openId: app.globalData.user_info.openId,
           phone_num: that.data.user_info.phone_num,
           site: that.data.user_info.site,
           sw_num: that.data.user_info.sw_num

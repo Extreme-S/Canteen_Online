@@ -55,9 +55,9 @@
         <view>{{user_info.nickName}}</view>
       </van-grid-item>
     </van-grid>
-    <van-cell title="姓名" value="{{app.globalData.user_info.name}}"/>
-    <van-cell title="工号" value="{{app.globalData.user_info.sw_num}}"/>
-    <van-cell title="窗口" value="{{app.globalData.user_info.site}}"/>
+    <van-cell title="姓名" value="{{user_info.name}}"/>
+    <van-cell title="工号" value="{{user_info.sw_num}}"/>
+    <van-cell title="窗口" value="{{adminWindow}}"/>
   </van-popup>
 
 </van-grid>

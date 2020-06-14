@@ -14,6 +14,7 @@ var time = {
 
 Page({
   data: {
+    price:'',
     columns: [{
         values: [''],
         className: 'colum0'
@@ -48,15 +49,22 @@ Page({
     var j = parseInt(app.globalData.user_info.site.substring(7, 9)) - 1
     var room = stuSite.rooms[stuCode][j]
     //数据库查询该菜品
-    db.collection('Menu').doc(options._id).get().then(res => {
-      this.setData({
-        address_info: room.dorm + room.floor + room.name,
-        good: res.data,
-        'columns[0].values[0]': date,
-        'user_order.user_info': app.globalData.user_info, //初始化订单中用户信息
-        'user_order.meal_orders': that.data.user_order.meal_orders.concat(res.data) //初始化订单信息meal_orders
+    db.collection('Menu')
+      .doc(options._id)
+      .get()
+      .then(res => {
+        this.setData({
+          address_info: room.dorm + room.floor + room.name,
+          good: res.data,
+          'columns[0].values[0]': date,
+          'user_order.user_info': app.globalData.user_info, //初始化订单中用户信息
+          'user_order.meal_orders': that.data.user_order.meal_orders.concat(res.data) //初始化订单信息meal_orders
+        })
+        this.setData({
+          price: parseInt(this.data.good.meal_price * 100)
+        })
       })
-    })
+
   },
 
 

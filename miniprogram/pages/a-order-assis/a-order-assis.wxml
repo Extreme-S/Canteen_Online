@@ -5,17 +5,17 @@
 
 <van-cell-group title="午餐订单" />
 <van-collapse accordion value="{{ activeName1 }}" bind:change="onChange1">
-  <van-collapse-item title="第一批次，11：30共计****份" name="1">
+  <van-collapse-item title="第一批次，11：30共计{{orderCnt[0]}}份" name="1">
     <view wx:key="this" wx:for="{{orderList[0]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>
   </van-collapse-item>
-  <van-collapse-item title="第二批次，12：00共计****份" name="2">
+  <van-collapse-item title="第二批次，12：00共计{{orderCnt[1]}}份" name="2">
     <view wx:key="this" wx:for="{{orderList[1]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>
   </van-collapse-item>
-  <van-collapse-item title="第三批次，12：30共计****份" name="3">
+  <van-collapse-item title="第三批次，12：30共计{{orderCnt[2]}}份" name="3">
     <view wx:key="this" wx:for="{{orderList[2]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>
@@ -25,17 +25,17 @@
 
 <van-cell-group title="晚餐订单" />
 <van-collapse accordion value="{{ activeName2 }}" bind:change="onChange2">
-  <van-collapse-item title="第一批次，17：30共计****份" name="1">
+  <van-collapse-item title="第一批次，17：30共计{{orderCnt[3]}}份" name="1">
     <view wx:key="this" wx:for="{{orderList[3]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>
   </van-collapse-item>
-  <van-collapse-item title="第二批次，18：00共计****份" name="2">
+  <van-collapse-item title="第二批次，18：00共计{{orderCnt[4]}}份" name="2">
     <view wx:key="this" wx:for="{{orderList[4]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>
   </van-collapse-item>
-  <van-collapse-item title="第三批次，18：30共计****份" name="3">
+  <van-collapse-item title="第三批次，18：30共计{{orderCnt[5]}}份" name="3">
     <view wx:key="this" wx:for="{{orderList[5]}}">
     <van-cell title="{{item.meal_name}}" value="{{item.cnt}}份" border="{{ false }}"/>
     </view>

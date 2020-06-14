@@ -7,6 +7,4 @@
   bottom:0;
   background-color: rgba(102, 255, 0, 0.603);
   align-items: center;
-  left: 0;
-  right: 0;
 }
