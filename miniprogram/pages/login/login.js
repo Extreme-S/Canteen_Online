@@ -3,7 +3,18 @@ const app = getApp()
 Page({
   data: {},
 
-  onLoad: function(options) {
+  onShow: function(options) {
+    //检测授权
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.navigateTo({
+            url: '../authorization/authorization',
+          })
+          return ;
+        }
+      }
+    })
     //从缓存中读取用户数据
     var json = wx.getStorageSync('userOtherInfo')
     console.log(json)

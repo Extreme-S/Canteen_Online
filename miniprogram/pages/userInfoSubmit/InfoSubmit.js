@@ -206,7 +206,7 @@ Page({
   },
 
   submit_info: function() {
-    // var that = this
+    var that = this
     // var f = this.data.flag
     // var d = this.data.user_info
     // if (d.sw_num.length == 0 || !f.sw_num_f || d.name == 0 || d.phone_num == 0 || !f.phone_f || this.data.room == 0 || !f.room_f) {
@@ -232,8 +232,8 @@ Page({
             type: 'success',
             message: '提交成功',
             onClose: () => {
-              wx.switchTab({
-                url: '../tab-my/my',
+              wx.redirectTo({
+                url: '../login/login',
               })
             },
           });

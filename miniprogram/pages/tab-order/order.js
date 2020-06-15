@@ -52,26 +52,6 @@ Page({
     this.getData(res => {});
   },
 
-  onLoad: function() {
-    //检测授权
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          wx.navigateTo({
-            url: '../authorization/authorization',
-          })
-        }
-      }
-    })
-
-    var date = new Date()
-    date.setHours(0)
-    date.setMinutes(0)
-    date.setSeconds(0)
-  },
-
-
-
   getData: function(callback) {
     wx.showLoading({
       title: '数据加载中',

@@ -2,7 +2,6 @@ const db = wx.cloud.database()
 const app = getApp()
 Page({
   data: {
-    
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
@@ -18,8 +17,8 @@ Page({
       console.log("用户的信息如下：");
       console.log(e.detail.userInfo);
 
-      wx.navigateBack({
-        complete: (res) => {},
+      wx.redirectTo({
+        url: '../login/login',
       })
 
      

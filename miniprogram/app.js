@@ -1,4 +1,3 @@
-//app.js
 App({
   globalData: {
     user_info: { //order页面加载时被初始化
@@ -11,6 +10,9 @@ App({
   },
 
   onLaunch: function() {
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
